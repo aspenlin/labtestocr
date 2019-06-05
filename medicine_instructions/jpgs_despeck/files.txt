@@ -1,0 +1,11 @@
+/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/medicine_instructions/jpgs_despeck/white_border-0.jpg
+/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/medicine_instructions/jpgs_despeck/white_border-1.jpg
+/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/medicine_instructions/jpgs_despeck/white_border-2.jpg
+/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/medicine_instructions/jpgs_despeck/white_border-3.jpg
+/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/medicine_instructions/jpgs_despeck/white_border-4.jpg
+/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/medicine_instructions/jpgs_despeck/white_border-5.jpg
+/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/medicine_instructions/jpgs_despeck/white_border-6.jpg
+/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/medicine_instructions/jpgs_despeck/white_border-7.jpg
+/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/medicine_instructions/jpgs_despeck/white_border-8.jpg
+/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/medicine_instructions/jpgs_despeck/white_border-9.jpg
+/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/medicine_instructions/jpgs_despeck/white_border-10.jpg

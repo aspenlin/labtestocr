@@ -1,0 +1,11 @@
+/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/medicine_instructions/auto_sens/H000000349药品说明书_auto_sens.jpg
+/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/medicine_instructions/auto_sens/乌司他丁说明书-1_auto_sens.jpg
+/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/medicine_instructions/auto_sens/乌司他丁说明书-2_auto_sens.jpg
+/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/medicine_instructions/auto_sens/二联活菌散药品说明书_auto_sens.jpg
+/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/medicine_instructions/auto_sens/吸入用乙酰半胱氨酸溶液说明书_auto_sens.jpg
+/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/medicine_instructions/auto_sens/诺氟沙星药品说明书-1_auto_sens.jpg
+/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/medicine_instructions/auto_sens/诺氟沙星药品说明书-2_auto_sens.jpg
+/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/medicine_instructions/auto_sens/诺氟沙星药品说明书-3_auto_sens.jpg
+/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/medicine_instructions/auto_sens/退热宁药品说明书_auto_sens.jpg
+/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/medicine_instructions/auto_sens/重组人粒细胞刺激因子注射液-说明书-1_auto_sens.jpg
+/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/medicine_instructions/auto_sens/重组人粒细胞刺激因子注射液-说明书-2_auto_sens.jpg

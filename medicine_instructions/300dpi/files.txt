@@ -1,0 +1,11 @@
+/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/medicine_instructions/H000000349药品说明书.jpg
+/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/medicine_instructions/乌司他丁说明书-1.jpg
+/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/medicine_instructions/乌司他丁说明书-2.jpg
+/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/medicine_instructions/二联活菌散药品说明书.jpg
+/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/medicine_instructions/吸入用乙酰半胱氨酸溶液说明书.jpg
+/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/medicine_instructions/诺氟沙星药品说明书-1.jpg
+/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/medicine_instructions/诺氟沙星药品说明书-2.jpg
+/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/medicine_instructions/诺氟沙星药品说明书-3.jpg
+/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/medicine_instructions/退热宁药品说明书.jpg
+/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/medicine_instructions/重组人粒细胞刺激因子注射液-说明书-1.jpg
+/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/medicine_instructions/重组人粒细胞刺激因子注射液-说明书-2.jpg
