@@ -1,6 +1,6 @@
-/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/lab_test_result/bloodtest.jpg
-/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/lab_test_result/bloodtest2.jpg
-/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/lab_test_result/labtest1.png
-/Users/jingjinglin/Machine_Learning/Siuvo2019SummerIntern/Tesseract-OCR/lab_test_result/labtest3.png
+~/tesseract/lab_test_result/bloodtest.jpg
+~/tesseract/lab_test_result/bloodtest2.jpg
+~/tesseract/lab_test_result/labtest1.png
+~/tesseract/lab_test_result/labtest3.png
 
 
