@@ -1,2 +1,0 @@
-tessedit_char_whitelist "<-～abcdefghijklmnopqrstuvwxyz/目百变异系标准差网织率总胆素直接间球比谷丙转氨酶草磷酶酰移乳氢肌激葡萄糖尿钾钠氯钙二氧化碳甘油三酯固醇密度脂载同型半胱丁ABCDEFGHIJKLMNOPQRSTUVWXYZ.白细胞计数中性粒细胞%淋巴细胞单核细胞嗜酸粒细胞碱绝对值红蛋血压积平均体积量浓度分布宽小板体1234567890性沉大（）"
-preserve_interword_spaces 1
