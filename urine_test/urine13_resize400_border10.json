@@ -1,0 +1,212 @@
+[
+  {
+    "confidence": 0.925, 
+    "test_name": "细菌", 
+    "value": "6.10"
+  }, 
+  {
+    "confidence": "", 
+    "test_name": "70%红细胞平均体积", 
+    "value": ""
+  }, 
+  {
+    "confidence": 0.92, 
+    "test_name": "亚硝酸盐", 
+    "value": "阴性"
+  }, 
+  {
+    "confidence": 0.46, 
+    "test_name": "尿蛋白", 
+    "value": "阳性"
+  }, 
+  {
+    "confidence": 0.52595, 
+    "test_name": "红细胞(高倍视野)", 
+    "value": "0.50"
+  }, 
+  {
+    "confidence": 0.902, 
+    "test_name": "电导率", 
+    "value": "24.90"
+  }, 
+  {
+    "confidence": "", 
+    "test_name": "其他有形成份", 
+    "value": ""
+  }, 
+  {
+    "confidence": 0.92, 
+    "test_name": "电导率信息", 
+    "value": "3级"
+  }, 
+  {
+    "confidence": 0.72, 
+    "test_name": "类酵母菌", 
+    "value": "0"
+  }, 
+  {
+    "confidence": "", 
+    "test_name": "细胞管型镜检", 
+    "value": ""
+  }, 
+  {
+    "confidence": 0.552, 
+    "test_name": "完整红细胞比率", 
+    "value": "0.10"
+  }, 
+  {
+    "confidence": 0.875, 
+    "test_name": "浑浊度", 
+    "value": "清晰"
+  }, 
+  {
+    "confidence": 0.84, 
+    "test_name": "颜色", 
+    "value": "黄色"
+  }, 
+  {
+    "confidence": "", 
+    "test_name": "颗粒管型镜检", 
+    "value": ""
+  }, 
+  {
+    "confidence": 0.71, 
+    "test_name": "粘液丝", 
+    "value": "29.46"
+  }, 
+  {
+    "confidence": 0.92, 
+    "test_name": "红细胞计数", 
+    "value": "0.10"
+  }, 
+  {
+    "confidence": 0.552, 
+    "test_name": "完整红细胞数量", 
+    "value": "0.10"
+  }, 
+  {
+    "confidence": 0.0, 
+    "test_name": "酸碱度", 
+    "value": "5"
+  }, 
+  {
+    "confidence": 0.52595, 
+    "test_name": "白细胞(高倍视野)", 
+    "value": "0.50"
+  }, 
+  {
+    "confidence": 0.895, 
+    "test_name": "尿胆原", 
+    "value": "阴性"
+  }, 
+  {
+    "confidence": "", 
+    "test_name": "尿钙", 
+    "value": ""
+  }, 
+  {
+    "confidence": "", 
+    "test_name": "维生素C", 
+    "value": ""
+  }, 
+  {
+    "confidence": 0, 
+    "test_name": "白细胞镜检", 
+    "value": "(高倍视野)"
+  }, 
+  {
+    "confidence": 0.4867, 
+    "test_name": "上皮细胞(高倍视野)", 
+    "value": "0.50"
+  }, 
+  {
+    "confidence": 0.885, 
+    "test_name": "葡萄糖", 
+    "value": "阴性"
+  }, 
+  {
+    "confidence": 0.69, 
+    "test_name": "红细胞镜检", 
+    "value": "0.10"
+  }, 
+  {
+    "confidence": 0.96, 
+    "test_name": "结晶", 
+    "value": "0"
+  }, 
+  {
+    "confidence": 0.925, 
+    "test_name": "胆红素", 
+    "value": "阴性"
+  }, 
+  {
+    "confidence": 0.7866666666666666, 
+    "test_name": "红细胞信息", 
+    "value": "未提示"
+  }, 
+  {
+    "confidence": 0.92, 
+    "test_name": "管型", 
+    "value": "0.27"
+  }, 
+  {
+    "confidence": 0.85, 
+    "test_name": "隐血", 
+    "value": "阴性"
+  }, 
+  {
+    "confidence": 0.92, 
+    "test_name": "病理管型", 
+    "value": "0.27"
+  }, 
+  {
+    "confidence": 0, 
+    "test_name": "白细胞", 
+    "value": "(高倍视野)"
+  }, 
+  {
+    "confidence": 0.886, 
+    "test_name": "比重", 
+    "value": "1.028"
+  }, 
+  {
+    "confidence": "", 
+    "test_name": "精子", 
+    "value": ""
+  }, 
+  {
+    "confidence": 0.94, 
+    "test_name": "酮体", 
+    "value": "阴性"
+  }, 
+  {
+    "confidence": "", 
+    "test_name": "管型低倍", 
+    "value": ""
+  }, 
+  {
+    "confidence": 0, 
+    "test_name": "上皮细胞镜检", 
+    "value": "(高倍视野)"
+  }, 
+  {
+    "confidence": "", 
+    "test_name": "透明管型镜检", 
+    "value": ""
+  }, 
+  {
+    "confidence": 0, 
+    "test_name": "白细胞计数", 
+    "value": "(高倍视野)"
+  }, 
+  {
+    "confidence": 0.9566666666666667, 
+    "test_name": "尿路感染信息", 
+    "value": "未提示"
+  }, 
+  {
+    "confidence": 0.91, 
+    "test_name": "小圆上皮细胞", 
+    "value": "0.60"
+  }
+]
