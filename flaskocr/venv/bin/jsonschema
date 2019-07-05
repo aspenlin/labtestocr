@@ -1,0 +1,10 @@
+#!/home/ubuntu/flaskocr/venv/bin/python
+# EASY-INSTALL-ENTRY-SCRIPT: 'jsonschema','console_scripts','jsonschema'
+__requires__ = 'jsonschema'
+import sys
+from pkg_resources import load_entry_point
+
+if __name__ == '__main__':
+    sys.exit(
+        load_entry_point('jsonschema', 'console_scripts', 'jsonschema')()
+    )
