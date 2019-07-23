@@ -1,10 +1,15 @@
+# 2019-07 Jingjing Lin, joejoeustc@gmail.com
+# tesseract version 5.0.0-alpha-152-g17c8a, built from github source
+# python version 3.5.2, tesserocr version 2.4.0, is a python wrapper for Tesseract
+# fuzzywuzzy version 0.17.0
+# Usage: for OCR an input image and parse result for different tests in a labtest report
 import re
 from tesserocr import PyTessBaseAPI
 from wand.image import Image
 from fuzzywuzzy import fuzz, process
 
 class stooltest:
-    
+    # these will be initialized when the class is called
     def __init__(self, imgpath, width_pixel=2000):
         self.imgpath = imgpath
         self.width_pixel = width_pixel
@@ -15,17 +20,21 @@ class stooltest:
         self.imgpath = self.image_process()
         self.text, self.text_split, self.characters, self.confidences = self.tess_result()
 
+    # allow tesseract to only recognize these characters
     def whitelist(self):
         return '()+-、\
                 颜色硬度大便性状外观镜下白细胞红脓上皮其他脂肪滴球隐血试验群轮病毒草绿黄棕\
                 软糊弱阴阳寄生原虫卵霉菌孢子体未见异常检出\
                 肌肉纤维植物颗粒它抗水粘液淀粉样本胶体金法\
-                abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+                abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.'
 
+    # charasters allowed in parsed results
     def result_char_allowed(self):
-        return '草绿棕黄红色糊状弱阴阳性粘液稀软水样便0123456789+-~～\
+        return '草绿棕黄红色糊状弱阴阳性粘液稀软水样便0123456789.+-~～\
                 未检出见异常() /HP少量'
-        
+
+    # one test item can have different names from different hospitals
+    # this dict is for including all the different names
     def test_items_dict(self):
         stool_dict = {}
         stool_dict['颜色'] = ['颜色','外观','颜色形态','颜色\s*\(\s*Colour\s*\)']
@@ -47,29 +56,60 @@ class stooltest:
         stool_dict['霉菌'] = ['霉菌','霉菌孢子']
         stool_dict['淀粉颗粒'] = ['淀粉样体','\(\s*淀粉样颗粒\s*\)','淀粉颗粒\s*\(\s*Starch\s*granule\s*\)']
         stool_dict['其他'] = ['其他','\(*\s*其它成份\s*\)*', '其它']
-#       sort the different names, longest first, thus reducing error when doing regex
+        #sort the different names, longest first, thus reducing error when doing regex
         for k, v in stool_dict.items():
             v.sort(key = lambda s: -len(s))
         return stool_dict
-    
+
+    # setup a dict for holding parsing result
     def result_dict(self):
         result = {}
         tests = list(self.test_items_dict.keys())
         [result.setdefault(test, []) for test in tests]
         return result
-        
+    
+    # def image_process(self):
+    #     with Image(filename=self.imgpath) as img:
+    #     #     get the original image width
+    #         pixel_x, pixel_y = img.size[0], img.size[1]
+    #     #     how many times we need to scale up/down
+    #         if pixel_x > pixel_y:
+    #             with img.clone() as i:
+    #         #         resize image to this width and this height
+    #                 i.resize(1920, 1080)
+    #                 i.contrast_stretch(black_point = 0.15)
+    #         #     add a 5*5pixel black border to the image, this will in general increase the accuracy of tesseract
+    #                 # i.border('black', 5, 5)
+    #                 if self.imgpath[-4] == '.':
+    #                     self.imgpath = ''.join([self.imgpath[:-4], '_processed', self.imgpath[-4:]])
+    #                 else:
+    #                     self.imgpath = ''.join([self.imgpath[:-5], '_processed', self.imgpath[-5:]])
+    #                 i.save(filename=self.imgpath)
+
+    #         elif pixel_x <= pixel_y:
+    #             with img.clone() as i:
+    #                 i.resize(1080, 1920)
+    #                 i.contrast_stretch(black_point = 0.10)
+    #                 if self.imgpath[-4] == '.':
+    #                     self.imgpath = ''.join([self.imgpath[:-4], '_processed', self.imgpath[-4:]])
+    #                 else:
+    #                     self.imgpath = ''.join([self.imgpath[:-5], '_processed', self.imgpath[-5:]])
+    #                 i.save(filename=self.imgpath)
+    #     return self.imgpath
+
+    # preprocess the image, resize and save
     def image_process(self):
         with Image(filename=self.imgpath) as img:
-        #     get the original image width
+            #get the original image width
             pixel_x = img.size[0]
-        #     how many times we need to scale up/down
+            #how many times we need to scale up/down
             scale = int(self.width_pixel / pixel_x)
             if scale < 1:
                 scale = 1
             with img.clone() as i:
-        #         resize image to this width and this height
+                #resize image to this width and this height
                 i.resize(int(i.width * scale), int(i.height * scale))
-        #     add a 5*5pixel black border to the image, this will in general increase the accuracy of tesseract
+                #add a 5*5pixel black border to the image, this will in general increase the accuracy of tesseract
                 # i.border('black', 5, 5)
                 if self.imgpath[-4] == '.':
                     self.imgpath = ''.join([self.imgpath[:-4], '_processed', self.imgpath[-4:]])
@@ -77,7 +117,8 @@ class stooltest:
                     self.imgpath = ''.join([self.imgpath[:-5], '_processed', self.imgpath[-5:]])
                 i.save(filename=self.imgpath)
         return self.imgpath
-                
+    
+    # tesseract OCR
     def tess_result(self):
         with PyTessBaseAPI(lang='chi_sim',psm=6) as api:
             api.SetVariable('tessedit_char_whitelist',self.whitelist)
@@ -87,6 +128,7 @@ class stooltest:
             characters, confidences = self.get_characters_and_confidences(api)
         # remove space after dot, which is a common error in tesseract result
         text = self.remove_space_after_dot(text)
+        # print(text)
         #split the text as a list of strings, for fuzzy match later
         text_split = text.split()
         return text, text_split, characters, confidences
@@ -95,7 +137,7 @@ class stooltest:
         for k, names in self.test_items_dict.items():
             for name in names:
                 value = re.findall(self.regex_rule(name), self.text)
-                print(name, value)
+                # print(name, value)
                 if value:
                     self.result_dict[k].append(value[0][1])
                     conf = self.conf_score(name, value[0][1])
@@ -110,9 +152,10 @@ class stooltest:
                 fuzz_ratio = fuzz.ratio(fuzzy[0], k)
                 # go through all the different variations of names 
                 for name in self.test_items_dict[k]:
+                    # seems slash in name doesn't matter for process.extractOne
                     fuzzy_new = process.extractOne(name, self.text_split, scorer=fuzz.ratio)
                     fuzz_ratio_new = fuzz.ratio(fuzzy_new[0], name)
-                    print(name, fuzzy_new, fuzz_ratio_new)
+                    # print(name, fuzzy_new, fuzz_ratio_new)
                     if fuzz_ratio_new > fuzz_ratio:
                         fuzzy = fuzzy_new
                 # if string matching acore is higher than 60
@@ -129,6 +172,7 @@ class stooltest:
                         self.result_dict[k].append(conf*fuzzy[1]/100)
                         
     def result(self):
+        # save the OCR text for debug purpose
         self.save_text()
         self.perfect_match()
         self.fuzzy_match()
@@ -141,6 +185,7 @@ class stooltest:
                 item['confidence'] = v[1]
                 for c in v[0]:
                     if c not in self.result_char_allowed:
+                        # print(item)
                         item['confidence'] = 0
                         break
             else:
@@ -155,6 +200,7 @@ class stooltest:
     def get_characters_and_confidences(self, api):
         api.Recognize()
         words = api.MapWordConfidences()
+        # print(words)
         characters = ''.join([word[0] for word in words])
         characters = characters.replace(' ','')
         confidences = []
@@ -176,11 +222,24 @@ class stooltest:
         return text
     
     def conf_score(self, match, value):
-        index = self.characters.find(match.replace(' ', ''))
-        length_match = len(match.replace(' ', ''))
-        start = index + length_match
-        end = index + length_match + len(value)
+        # convert reg expression to normal string
+        # otherwise won't be able to find 
+        # don't think it necessary here because match passed to here should should not include \
+        if '\s*' in match:
+            match = match.replace('\s*', '')
+        if '\s+' in match:
+            match = match.replace('\s+', '')
+        if '\(' in match:
+            match = match.replace('\(', '(')
+        if '\)' in match:
+            match = match.replace('\)', ')')
+            # probably no need to use replace here
+        exclude = self.characters.find(match.replace(' ', ''))
+        start = self.characters[exclude:].find(value) + exclude
+        end = start + len(value)
         conf, total = 0, 100*len(value)
+        # if match == '血红蛋白':
+        #     print('血红蛋白', value, self.confidences[start:end])
         for i in range(start, end):
             conf += self.confidences[i]
         return conf/total
@@ -213,11 +272,11 @@ class urinetest(stooltest):
         return '<=?+().^~\
                 尿液分析胆原红素酮体血蛋白质亚硝酸盐细胞葡萄糖比重碱度镜检上皮管型结晶其他有形成份阴\
                 性无结果项目名称参考区间单位颜色黄浊清～/值隐-位相电导率仅供类酵母菌粘液丝计数病理量信息完整高倍提示低潜正常浑\
-                酯酶小圆非均一级标记视野平体积百阳微透明澄浅直接未见异维生外观晰个路感染态受损滴虫霉菌每鳞状柱粒草肌酐钙\
+                酯酶小圆非均一级标记视野平体积百阳微透明澄浅直接未见找到异维生外观晰个路感染态受损滴虫霉菌每鳞状柱粒草肌酐钙\
                 abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 
     def result_char_allowed(self):
-        return '0123456789.+-()尿路感染?红色性弱阴阳未见异常提示检出无<= 清\
+        return '0123456789.+-()尿路感染?红色性弱阴阳未找到见异常提示检出无<= 清\
                 分类正常见浅微黄澄清晰浑浊非均一型红细胞级NORMALNEGnegnormal/HP'
 
     def test_items_dict(self):
@@ -247,10 +306,10 @@ class urinetest(stooltest):
         urine_dict['精子'] = ['精子']
         urine_dict['其他有形成份'] = ['其他有形成份']
         urine_dict['70%红细胞平均体积'] = ['70%红细胞平均体积','70%红细胞平均体积\s*RBC-P70']
-        urine_dict['白细胞\(高倍视野\)'] = ['白细胞\(HPF\)','白细胞\(高倍\)','每高倍视野白细胞数','白细胞\(高倍视野\)']
-        urine_dict['红细胞\(高倍视野\)'] = ['红细胞\(高倍\)','红细胞\(HPF\)','每高倍视野红细胞数','红细胞\(高倍视野\)','红细胞\s*(RBC)']
-        urine_dict['上皮细胞\(高倍视野\)'] = ['上皮细胞\(高倍视野\)','上皮细胞\(高倍\)','每高倍视野上皮细胞数']
-        urine_dict['细菌\(高倍视野\)'] = ['细菌\(高倍视野\)']
+        urine_dict['白细胞(高倍视野)'] = ['白细胞\(HPF\)','白细胞\(高倍\)','每高倍视野白细胞数','白细胞\(高倍视野\)']
+        urine_dict['红细胞(高倍视野)'] = ['红细胞\(高倍\)','红细胞\(HPF\)','每高倍视野红细胞数','红细胞\(高倍视野\)','红细胞\s*(RBC)']
+        urine_dict['上皮细胞(高倍视野)'] = ['上皮细胞\(高倍视野\)','上皮细胞\(高倍\)','每高倍视野上皮细胞数']
+        urine_dict['细菌(高倍视野)'] = ['细菌\(高倍视野\)']
         urine_dict['红细胞信息'] = ['红细胞信息','红细胞形态信息','红细胞形态变异信息','红细胞信息\s*info']
         urine_dict['红细胞镜检'] = ['直接镜检-红细胞','镜检红细胞','红细胞\(镜检\)','镜检：红细胞\(RBC\)','红细胞镜检']
         urine_dict['白细胞镜检'] = ['直接镜检-白细胞','镜检白细胞','白细胞\(镜检\)','镜检：白细胞','白细胞镜检']
@@ -335,6 +394,27 @@ class bloodtest(stooltest):
         for k, v in blood_dict.items():
             v.sort(key = lambda s: -len(s))
         return blood_dict
+
+
+class psa(stooltest):
+    def regex_rule(self, name):
+        return ''.join([name, '(\D*)(\d+\.\d{0,3})'])
+
+    def whitelist(self):
+        return 'FTPSA/总游离比值前列腺特异性抗原tf-()Max0123456789.'
+
+    def result_char_allowed(self):
+        return '0123456789.'
+
+    def test_items_dict(self):
+        psa_dict = {}
+        psa_dict['总前列腺特异抗原'] = ['总PSA','总前列腺特异抗原','前列腺特异抗原','总前列腺特异性抗原','T-PSA','tPSA']
+        psa_dict['游离前列腺特异抗原'] = ['游离PSA','游离前列腺特异抗原','游离前列腺抗原','游离前列腺特异性抗原','F-PSA','fPSA']
+        psa_dict['比值'] = ['FPSA/TPSA','比值','f-PSA/t-PSA\(f/t\)','FPSA/PSA','F-PSA/T-PSA','F/T','f/t']
+        
+        for k, v in psa_dict.items():
+            v.sort(key = lambda s: -len(s))
+        return psa_dict
 
 
 
