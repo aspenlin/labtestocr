@@ -10,7 +10,7 @@ from wand.image import Image
 from fuzzywuzzy import fuzz, process
 import cv2
 
-class stooltest:
+class stoolTest:
     # these will be initialized when the class is called
     def __init__(self, imgpath, width_pixel=2000):
         self.imgpath = imgpath
@@ -275,7 +275,7 @@ class stooltest:
 
 
 
-class urinetest(stooltest):
+class urineTest(stooltest):
 
     def whitelist(self):
         return '<=?+().^~\

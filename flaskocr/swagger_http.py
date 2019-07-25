@@ -7,7 +7,7 @@ import requests
 from flask import Flask, request, jsonify
 from flask_restplus import Api, Resource, reqparse
 # labtestocr is the class written by JJLin to parse result from a labtest report
-from labtestocr import bloodtest, urinetest, stooltest, psa
+from labtestocr import bloodTest, urineTest, stoolTest, psa
 
 # setup flask and the interface
 flask_app = Flask(__name__)
@@ -29,11 +29,11 @@ user_input.add_argument('url',
                         required=True,
                         location='url',
                         help='URL')
-user_input.add_argument('test_type',
+user_input.add_argument('test type',
                         type=str,
                         required=True,
                         location='string',
-                        help='bloodtest, urinetest etc, must be class name')
+                        help='bloodTest, urineTest, stoolTest, psa')
 
 # process user input and output results
 @api.route('/upload')
@@ -41,7 +41,7 @@ class ocr_result(Resource):
     @api.expect(user_input)
     def post(self):
         url = request.args['url']
-        test_type = request.args['test_type']
+        test_type = request.args['test type']
         # download the image
         file = requests.get(url)
         # get the image name
@@ -57,5 +57,5 @@ class ocr_result(Resource):
         return jsonify(labtest.result())
 
 if __name__ == '__main__':
-    flask_app.run(debug=True)
+    flask_app.run(debug=False, host='0.0.0.0')
 
