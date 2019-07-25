@@ -17,13 +17,16 @@ https://github.com/tesseract-ocr/tesseract/wiki/AddOns // AddOns for tesseract, 
 https://groups.google.com/forum/#!forum/tesseract-ocr // Google group where you can ask questions when having problem, usually there will be people reply to you within one day
 
 ## Running instructions
-tesseract imagepath outputfilepath(without file extension) -l chi_sim --psm 6 configs
+- tesseract imagepath outputfilepath(without file extension) -l chi_sim --psm 6 configs
 
 // running tesseract from terminal:
 
 Example:
 
-tesseract ~/tesseract/lab_test_result/test.jpeg ~/tesseract/blood_test/test -l chi_sim --psm 6 -c preserve_interword_spaces=1 whitelist_blood.txt
+```bash
+$ tesseract ~/tesseract/lab_test_result/test.jpeg ~/tesseract/blood_test/test -l chi_sim --psm 6 -c preserve_interword_spaces=1 whitelist_blood.txt
+```
+
 
 whitelist_blood.txt should be in folder /usr/local/share/tessdata/configs, can also replace it with other configs in the folder, like 'box', 'tsv', 'pdf' to get box/tsv/pdf output from tesseract; 
 
@@ -191,9 +194,9 @@ The above command created engeval and engtrain in tesstutorial folder
   --eval_listfile ~/tesstutorial/engeval/eng.training_files.txt \
   --max_iterations 5000 &>~/tesstutorial/engoutput/basetrain.log
 
-In a separate window monitor the log file:
+- In a separate window monitor the log file:
 
-- tail -f ~/tesstutorial/engoutput/basetrain.log
+tail -f ~/tesstutorial/engoutput/basetrain.log
 
 - Test training result on ‘Impact’ font:
 
