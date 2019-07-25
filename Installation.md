@@ -200,7 +200,7 @@ wget https://raw.githubusercontent.com/tesseract-ocr/langdata/master/chi_sim/chi
 ```bash
 grep ↓ langdata/chi_sim/chi_sim.training_text ## nothing will show up
 ```
-use nano to insert new chars (↓) to chi_sim.training_text
+use nano to insert (the appropriate number of) new chars (↓) to chi_sim.training_text
 
 from tesstutorial/tesseract run
 ```bash
@@ -213,7 +213,7 @@ src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata
 ```bash
 text2image --find_fonts --text ./langdata/chi_sim/chi_sim.training_text --outputbase ./langdata/chi_sim/  --min_coverage 0.999  --fonts_dir=/usr/share/fonts/
 ```
-- how to install fonts?
+how to install fonts?
 
 Sudo apt-get install *** (need to find from the web)
 
@@ -312,27 +312,32 @@ lstmtraining --stop_training \
 --model_output ~/tesstutorial/trainarrows/chi_sim.traineddata
 ```
 ### Adding ± to chi_sim
-
-- grep ± langdata/chi_sim/chi_sim.training_text
-
-- nano langdata/chi_sim/chi_sim.training_text, then inserted ± 
-
-- src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata_only \
-  --noextract_font_properties --langdata_dir ../langdata \
-  --tessdata_dir ./tessdata --output_dir ~/tesstutorial/trainplusminuszh
-
-- src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata_only \
-  --noextract_font_properties --langdata_dir ../langdata \
-  --tessdata_dir ./tessdata \
-  --fontlist " AR PL UKai TW " --output_dir ~/tesstutorial/evalplusminuszh
-
-- combine_tessdata -e tessdata/best/chi_sim.traineddata \
-  ~/tesstutorial/trainplusminuszh/chi_sim.lstm
-  
-
-- lstmtraining --model_output ~/tesstutorial/trainplusminuszh/plusminuszh \
-  --continue_from ~/tesstutorial/trainplusminuszh/chi_sim.lstm \
-  --traineddata ~/tesstutorial/trainplusminuszh/chi_sim/chi_sim.traineddata \
-  --old_traineddata tessdata/best/chi_sim.traineddata \
-  --train_listfile ~/tesstutorial/trainplusminuszh/chi_sim.training_files.txt \
-  --max_iterations 3600
+```bash
+grep ± langdata/chi_sim/chi_sim.training_text
+```
+```bash
+nano langdata/chi_sim/chi_sim.training_text ##then inserted ± 
+```
+```bash
+src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata_only \
+--noextract_font_properties --langdata_dir ../langdata \
+--tessdata_dir ./tessdata --output_dir ~/tesstutorial/trainplusminuszh
+```
+```bash
+src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata_only \
+--noextract_font_properties --langdata_dir ../langdata \
+--tessdata_dir ./tessdata \
+--fontlist " AR PL UKai TW " --output_dir ~/tesstutorial/evalplusminuszh
+```
+```bash
+combine_tessdata -e tessdata/best/chi_sim.traineddata \
+~/tesstutorial/trainplusminuszh/chi_sim.lstm
+```  
+```bash
+lstmtraining --model_output ~/tesstutorial/trainplusminuszh/plusminuszh \
+--continue_from ~/tesstutorial/trainplusminuszh/chi_sim.lstm \
+--traineddata ~/tesstutorial/trainplusminuszh/chi_sim/chi_sim.traineddata \
+--old_traineddata tessdata/best/chi_sim.traineddata \
+--train_listfile ~/tesstutorial/trainplusminuszh/chi_sim.training_files.txt \
+--max_iterations 3600
+```
