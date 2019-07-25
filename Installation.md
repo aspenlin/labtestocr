@@ -260,9 +260,7 @@ use nano to insert new chars (↓) to chi_sim.training_text
 from tesstutorial/tesseract run
 
 - src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata_only \
-
   --noextract_font_properties --langdata_dir ../langdata \
-  
   --tessdata_dir ./tessdata --output_dir ~/tesstutorial/trainarrows
 
 #### Problem: could not find font named ' ' 
@@ -312,39 +310,28 @@ https://github.com/tesseract-ocr/langdata/blob/master/font_properties
 After installing necessary fonts, from tesstutorial/tesseract run
 
 - src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata_only \
-
   --noextract_font_properties --langdata_dir ../langdata \
-  
   --tessdata_dir ./tessdata --output_dir ~/tesstutorial/trainarrows
   
 (this step creates training data, the training text created here is equivalent to the text used to train base tesseract not langdata_lstm)
 
 - src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata_only \
-
   --noextract_font_properties --langdata_dir ../langdata \
-  
   --tessdata_dir ./tessdata \
-  
   --fontlist " AR PL UKai TW " --output_dir ~/tesstutorial/evalarrows
   
 (create evaluation data for the font in fontlist)
 
 - combine_tessdata -e tessdata/best/chi_sim.traineddata \
-
   ~/tesstutorial/trainarrows2/chi_sim.lstm
   
 (created chi_sim.lstm file)
 
 - lstmtraining --model_output ~/tesstutorial/trainarrows/arrows \
-
   --continue_from ~/tesstutorial/trainarrows/arrows_checkpoint\
-  
   --traineddata ~/tesstutorial/trainarrows/chi_sim/chi_sim.traineddata \
-  
   --old_traineddata tessdata/best/chi_sim.traineddata \
-  
   --train_listfile ~/tesstutorial/trainarrows/chi_sim.training_files.txt \
-  
   --max_iterations 3600
 
 - combine_tessdata -d tesstutorial/tesseract/tessdata/best/chi_sim.traineddata
@@ -370,15 +357,11 @@ Version string:4.00.00alpha:chi_sim:synth20170629:[1,48,0,1Ct3,3,16Mp3,3Lfys64Lf
 23:version:size=84, offset=13077335
 
 - lstmeval --model ~/tesstutorial/trainarrows/arrows_checkpoint \
-
   --traineddata ~/tesstutorial/trainarrows/chi_sim/chi_sim.traineddata \
-  
   --eval_listfile ~/tesstutorial/trainarrows/chi_sim.training_files.txt
 
 - lstmeval --model ~/tesstutorial/trainarrows/arrows_checkpoint \
-
   --traineddata ~/tesstutorial/trainarrows/chi_sim/chi_sim.traineddata \
-  
   --eval_listfile ~/tesstutorial/evalarrows/chi_sim.training_files.txt 2>&1 |
   grep ↑
 
