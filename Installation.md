@@ -2,7 +2,7 @@
 Commands for buliding tesseract, tesstrain tools from source, and further training tesseract at Ubuntu 16.04 on AWS, Jingjing LIN, 2019-07
 
 ## Useful links
-https://github.com/tesseract-ocr // contains everything about tesseract (different langdata, tessdata etc.)
+https://github.com/tesseract-ocr // has everything about tesseract (different langdata, tessdata etc.)
 
 https://github.com/tesseract-ocr/tesseract // the source for tesseract, has information about how to use or install tesseract etc.
 
@@ -59,25 +59,17 @@ Installed Leptonica1.78.0 manually following http://www.leptonica.org/source/REA
 ### Install Tesseract
 (I accidentally build tesseract inside leptonica-1.78.0 folder, need to cd to root when build tesseract to avoid this)
 After installing the dependencies above, install tesseract with training:
-
+```bash
 git clone https://github.com/tesseract-ocr/tesseract.git
-
 cd tesseract
-
 ./autogen.sh
-
 ./configure
-
 make
-
 sudo make install
-
 sudo ldconfig
-
 make training
-
 sudo make training-install
-
+```
 #### Install extra tessdata
 (have to do this for chi_sim to work)
 
