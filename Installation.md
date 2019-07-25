@@ -42,7 +42,7 @@ whitelist_blood.txt should be in folder /usr/local/share/tessdata/configs, can a
 '-l chi_sim' is for setting language to chi_sim, the available languages can be viewd with 'tesseract --list-langs'
 
 ## Installation
-### Install Dependicies
+### Install Dependencies
 sudo apt-get install g++ # or clang++ (presumably) //I chose g++
 
 sudo apt-get install autoconf automake libtool
@@ -74,7 +74,9 @@ Installed Leptonica1.78.0 manually following http://www.leptonica.org/source/REA
 ### Install Tesseract
 (I accidentally build tesseract inside leptonica-1.78.0 folder, need to cd to root when build tesseract to avoid this)
 After installing the dependencies above, install tesseract with training:
+
 git clone https://github.com/tesseract-ocr/tesseract.git
+
 cd tesseract
     ./autogen.sh
     ./configure
@@ -86,24 +88,29 @@ cd tesseract
 
 #### Install extra tessdata
 (have to download this for chi_sim to work)
-git clone https://github.com/tesseract-ocr/tessdata.git //this will clone all the traineddata from github, there should be a better way to just download one traineddata
+git clone https://github.com/tesseract-ocr/tessdata.git // this will clone all the traineddata from github, there should be a better way to just download one traineddata
 then move the necessary .traineddata(like chi_sim.traineddata) to /usr/local/share/tessdata
 
 #### Install ScrollView.jar 
-//for training purpose, to show tesseract segment result, didn't really use in the end, doesn't seem to work on a server, need display, can probably work with Xterm
+// for training purpose, to show tesseract segment result, didn't really use in the end, doesn't seem to work on a server, need display, can probably work with Xterm
+
 Sudo apt-get install default-jdk to install javac
+
 Downloaded ScrollView.jar to tesseract/java
+
 Make ScrollVIew.jar
+
 export SCROLLVIEW_PATH=$PWD/java
 
-#### Install necessary fonts for tesstrianing: (Will need to download extra fonts for training Chinese later)
+#### Install necessary fonts for tesstraining: 
+(Will need to download extra fonts for training Chinese, see later)
 sudo apt install ttf-mscorefonts-installer
 sudo apt install fonts-dejavu
 fc-cache -vf //this is probably for checking fonts available
 
 
 ## Set up for tessturotial (training English): 
-//Follow instructions in the following link: https://github.com/tesseract-ocr/tesseract/wiki/TrainingTesseract-4.00, If you run into some problems, refer to notes below 
+// Follow instructions in the following link: https://github.com/tesseract-ocr/tesseract/wiki/TrainingTesseract-4.00, If you run into some problems, refer to notes below 
 mkdir ~/tesstutorial
 cd ~/tesstutorial
 mkdir langdata
@@ -139,7 +146,7 @@ src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang eng --linedata_onl
 Runs after move eng.traineddata from tessdata/best to tessdata
 The above command created engeval and engtrain in tesstutorial folder
 
-Training from scratch
+### Training from scratch
 mkdir -p ~/tesstutorial/engoutput
 lstmtraining --debug_interval 100 \
   --traineddata ~/tesstutorial/engtrain/eng/eng.traineddata \
@@ -172,8 +179,9 @@ on full model:
 --model tessdata/best/eng.traineddata --traineddata ~/tesstutorial/engtrain/eng/eng.traineddata --eval_listfile ~/tesstutorial/engtrain/eng.training_files.txt
 Lowest error rate
 
-## Training Chinese
+### Training Chinese
 There are a lot of things that need to be tuned for the training for a very good result fitted to your purpose, for example, the training text used, the fonts used for training, the iterations, chi_sim is harder than Latin, you probably need to retrain a few layers instead of fine tuning just a few characters
+
 The question I asked when having problem training, might be helpful: https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!topic/tesseract-ocr/F2iuSvajHqA
 Also refer to: https://github.com/tesseract-ocr/tesseract/wiki/TrainingTesseract-4.00
 
@@ -189,13 +197,13 @@ wget https://raw.githubusercontent.com/tesseract-ocr/langdata/master/chi_sim/chi
 
 grep ↓ langdata/chi_sim/chi_sim.training_text (nothing will show up)
 use nano to insert new chars (↓) to chi_sim.training_text
-&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
 from tesstutorial/tesseract run
 src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata_only \
   --noextract_font_properties --langdata_dir ../langdata \
   --tessdata_dir ./tessdata --output_dir ~/tesstutorial/trainarrows
 
-### Problem: could not find font named ' ' 
+#### Problem: could not find font named ' ' 
 (https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!topic/tesseract-ocr/5vLEamZ43Kg Google group question I asked when have this problem)
 text2image --find_fonts --text ./langdata/chi_sim/chi_sim.training_text --outputbase ./langdata/chi_sim/  --min_coverage 0.999  --fonts_dir=/usr/share/fonts/
 how to install fonts?
@@ -204,17 +212,29 @@ fc-list :lang=zh (list all Chinese fonts available in the system)
 fc-match Arial (find Arial fonts available?)
 
 some fonts cannot be found and installed from internet, added the following to src/training/language-specific.sh instead (these need to also be found in langdata/font_properties, otherwise need to add them to font_properties too)
+
    "AR PL UKai HK" \
-    "AR PL UKai TW" \
-    "AR PL UKai TW MBE" \
-    "AR PL UKai Patched" \
-    "AR PL UMing CN, Light," \
-    "AR PL UMing HK Light" \
-    "AR PL UMing TW Light" \
-    "AR PL UMing TW MBE Light" \
-    "AR PL UMing Patched Light" \
-    "Arial Unicode MS Regular" \
+   
+   "AR PL UKai TW" \
+    
+   "AR PL UKai TW MBE" \
+    
+   "AR PL UKai Patched" \
+   
+   "AR PL UMing CN, Light," \
+   
+   "AR PL UMing HK Light" \
+   
+   "AR PL UMing TW Light" \
+   
+   "AR PL UMing TW MBE Light" \
+   
+   "AR PL UMing Patched Light" \
+   
+   "Arial Unicode MS Regular" \
+   
 Useful links about how to slove this problem:
+
 https://github.com/tesseract-ocr/tesseract/wiki/Fonts
 https://github.com/tesseract-ocr/langdata_lstm/blob/master/chi_sim/okfonts.txt
 https://github.com/tesseract-ocr/langdata/blob/master/font_properties
