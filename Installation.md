@@ -154,26 +154,26 @@ In a separate window monitor the log file:
 ```bash
 tail -f ~/tesstutorial/engoutput/basetrain.log
 ```
-Test training result on ‘Impact’ font:
+Test training result on ‘Impact’ font: High error rate
 ```bash
 lstmeval --model ~/tesstutorial/engoutput/base_checkpoint \
 --traineddata ~/tesstutorial/engtrain/eng/eng.traineddata \
 --eval_listfile ~/tesstutorial/engeval/eng.training_files.txt
 ```  
-High error rate
 
-On 4500 or so fonts:
+
+On 4500 or so fonts: Low error rate
 ```bash
 lstmeval --model tessdata/best/eng.traineddata --traineddata ~/tesstutorial/engtrain/eng/eng.traineddata --eval_listfile ~/tesstutorial/engeval/eng.training_files.txt
 ```
-low error rate
 
-on full model:
+
+on full model: Lowest error rate
 ```bash
 lstmeval --model tessdata/best/eng.traineddata --traineddata ~/tesstutorial/engtrain/eng/eng.traineddata --eval_listfile
 ~/tesstutorial/engtrain/eng.training_files.txt
 ```
-Lowest error rate
+
 
 ### Training Chinese
 
