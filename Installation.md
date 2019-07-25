@@ -6,25 +6,17 @@ https://github.com/tesseract-ocr // contains everything about tesseract (differe
 
 https://github.com/tesseract-ocr/tesseract // the source for tesseract, has information about how to use or install tesseract etc.
 
-https://github.com/tesseract-ocr/tesseract/wiki/Compiling // build tesseract from source, as of 2017-06, only tesseract built from source support whitelist, otherwise whitelist is not supported
+https://github.com/tesseract-ocr/tesseract/wiki/Compiling // about how to build tesseract from source, as of 2017-06, only tesseract built from source support whitelist, otherwise whitelist is not supported
 
-https://github.com/tesseract-ocr/tesseract/wiki/ImproveQuality // about how to improve image quality for better tesseract result, imagemagick is a very powerful image processing engine, python also provides several very good image processing packages, like opencv-python, Pillow. The main things to do are resizing, contrast enhancement, and image dewarp.
+https://github.com/tesseract-ocr/tesseract/wiki/ImproveQuality // about how to improve image quality for better tesseract result, imagemagick is a very powerful image processing engine, python also provides several very good image processing packages, like opencv-python, Pillow. The main things to do are resizing, contrast enhancement, and image dewarp
 
-https://github.com/tesseract-ocr/tesseract/wiki/TrainingTesseract-4.00 // about how to train tesseract to better fit to your purpose
+https://github.com/tesseract-ocr/tesseract/wiki/TrainingTesseract-4.00 // about how to train tesseract to better fit our purpose
 
-https://github.com/tesseract-ocr/tesseract/wiki/AddOns // AddOns for tesseract, has different wrapper for different languages
+https://github.com/tesseract-ocr/tesseract/wiki/AddOns // AddOns for tesseract, has different wrapper for different programming languages
 
 https://groups.google.com/forum/#!forum/tesseract-ocr // Google group where you can ask questions when having problem, usually there will be people reply to you within one day
 
 ## Running instructions
-/usr/local/share/tessdata
-
-// tessdata folder, need to download extra traineddata to this folder for tesseract to work with other languages than eng
-
-/usr/local/share/tessdata/configs/
-
-// location of configs for tesseract, for running tesseract from terminal, need to put your whitelist here, when using tesserocr, there's no need to add them here
-
 tesseract imagepath outputfilepath(without file extension) -l chi_sim --psm 6 configs
 
 // running tesseract from terminal:
@@ -41,9 +33,18 @@ whitelist_blood.txt should be in folder /usr/local/share/tessdata/configs, can a
 
 '-l chi_sim' is for setting language to chi_sim, the available languages can be viewd with 'tesseract --list-langs'
 
+/usr/local/share/tessdata
+
+// tessdata folder, need to download extra traineddata to this folder for tesseract to work with other languages than eng
+
+/usr/local/share/tessdata/configs/
+
+// location of configs for tesseract, for running tesseract from terminal, need to put your whitelist here, when using tesserocr, there's no need to add config files here though
+
+
 ## Installation
 ### Install Dependencies
-sudo apt-get install g++ # or clang++ (presumably) //I chose g++
+sudo apt-get install g++ # or clang++ (presumably) // I chose g++
 
 sudo apt-get install autoconf automake libtool
 
@@ -65,9 +66,7 @@ sudo apt-get install libpango1.0-dev
 
 sudo apt-get install libcairo2-dev
 
-sudo apt-get install libleptonica-dev
-
-Error: Unable to locate package libleptonica-dev
+sudo apt-get install libleptonica-dev // Error: Unable to locate package libleptonica-dev
 
 Installed Leptonica1.78.0 manually following http://www.leptonica.org/source/README.html#BUILDING
 
@@ -78,17 +77,26 @@ After installing the dependencies above, install tesseract with training:
 git clone https://github.com/tesseract-ocr/tesseract.git
 
 cd tesseract
-    ./autogen.sh
-    ./configure
-    make
-    sudo make install
-    sudo ldconfig
-    make training
-    sudo make training-install
+
+./autogen.sh
+
+./configure
+
+make
+
+sudo make install
+
+sudo ldconfig
+
+make training
+
+sudo make training-install
 
 #### Install extra tessdata
-(have to download this for chi_sim to work)
+(have to do this for chi_sim to work)
+
 git clone https://github.com/tesseract-ocr/tessdata.git // this will clone all the traineddata from github, there should be a better way to just download one traineddata
+
 then move the necessary .traineddata(like chi_sim.traineddata) to /usr/local/share/tessdata
 
 #### Install ScrollView.jar 
@@ -104,13 +112,17 @@ export SCROLLVIEW_PATH=$PWD/java
 
 #### Install necessary fonts for tesstraining: 
 (Will need to download extra fonts for training Chinese, see later)
+
 sudo apt install ttf-mscorefonts-installer
+
 sudo apt install fonts-dejavu
-fc-cache -vf //this is probably for checking fonts available
+
+fc-cache -vf // this is probably for checking fonts available
 
 
 ## Set up for tessturotial (training English): 
-// Follow instructions in the following link: https://github.com/tesseract-ocr/tesseract/wiki/TrainingTesseract-4.00, If you run into some problems, refer to notes below 
+Follow instructions in the following link: https://github.com/tesseract-ocr/tesseract/wiki/TrainingTesseract-4.00, If you run into some problems, refer to notes below 
+
 mkdir ~/tesstutorial
 cd ~/tesstutorial
 mkdir langdata
@@ -133,6 +145,8 @@ sudo wget https://github.com/tesseract-ocr/tessdata_best/raw/master/eng.trainedd
 sudo wget https://github.com/tesseract-ocr/tessdata_best/raw/master/heb.traineddata
 sudo wget https://github.com/tesseract-ocr/tessdata_best/raw/master/chi_sim.traineddata
 
+### Training from scratch
+
 src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang eng --linedata_only \
   --noextract_font_properties --langdata_dir ../langdata \
   --tessdata_dir ./tessdata --output_dir ~/tesstutorial/engtrain
@@ -143,10 +157,9 @@ src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang eng --linedata_onl
   --fontlist "Impact Condensed" --output_dir ~/tesstutorial/engeval
 
 (If it runs into error, copy paste the code and run again)
-Runs after move eng.traineddata from tessdata/best to tessdata
+
 The above command created engeval and engtrain in tesstutorial folder
 
-### Training from scratch
 mkdir -p ~/tesstutorial/engoutput
 lstmtraining --debug_interval 100 \
   --traineddata ~/tesstutorial/engtrain/eng/eng.traineddata \
@@ -159,34 +172,37 @@ lstmtraining --debug_interval 100 \
 In a separate window monitor the log file:
 tail -f ~/tesstutorial/engoutput/basetrain.log
 
-error: (forget about this error, doesn't really matter)
-No X11 DISPLAY variable was set
-Works after adding -Y in ssh command and also (enable X11 display)
-Sudo apt-get install openbox
-Sudo apt-get install xorg
-‘Xterm &’ can be used to check whether X11 Display is enabled in Ubuntu server
+Test training result on ‘Impact’ font:
 
-Test training result
-On ‘Impact’ font
 lstmeval --model ~/tesstutorial/engoutput/base_checkpoint \
   --traineddata ~/tesstutorial/engtrain/eng/eng.traineddata \
   --eval_listfile ~/tesstutorial/engeval/eng.training_files.txt
 High error rate
-On 4500 or so fonts
+
+On 4500 or so fonts:
+
 lstmeval --model tessdata/best/eng.traineddata --traineddata ~/tesstutorial/engtrain/eng/eng.traineddata --eval_listfile ~/tesstutorial/engeval/eng.training_files.txt
 low error rate
+
 on full model:
+
 --model tessdata/best/eng.traineddata --traineddata ~/tesstutorial/engtrain/eng/eng.traineddata --eval_listfile ~/tesstutorial/engtrain/eng.training_files.txt
 Lowest error rate
 
 ### Training Chinese
-There are a lot of things that need to be tuned for the training for a very good result fitted to your purpose, for example, the training text used, the fonts used for training, the iterations, chi_sim is harder than Latin, you probably need to retrain a few layers instead of fine tuning just a few characters
 
-The question I asked when having problem training, might be helpful: https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!topic/tesseract-ocr/F2iuSvajHqA
+There are a lot of things that need to be tuned for the training for a very good result fitted to your purpose, for example, the training text used (number of necessary characters added), the fonts used for training, the iterations etc.. chi_sim is harder than Latin, you probably need to retrain a few layers instead of fine tuning just a few characters. By doing the following I can successfully recognize arrows, but to get a very good OCR result this is far from enough.
+
+The question I asked when having problem training might be helpful to you:
+
+https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!topic/tesseract-ocr/F2iuSvajHqA
+
 Also refer to: https://github.com/tesseract-ocr/tesseract/wiki/TrainingTesseract-4.00
 
-Training for chi_sim (adding ↓)
+### Fine tuning chi_sim (adding ↓)
+
 At tesstutorial/langdata/
+
 mkdir chi_sim
 cd chi_sim
 wget https://raw.githubusercontent.com/tesseract-ocr/langdata/master/chi_sim/chi_sim.training_text
@@ -199,19 +215,22 @@ grep ↓ langdata/chi_sim/chi_sim.training_text (nothing will show up)
 use nano to insert new chars (↓) to chi_sim.training_text
 
 from tesstutorial/tesseract run
+
 src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata_only \
   --noextract_font_properties --langdata_dir ../langdata \
   --tessdata_dir ./tessdata --output_dir ~/tesstutorial/trainarrows
 
 #### Problem: could not find font named ' ' 
 (https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!topic/tesseract-ocr/5vLEamZ43Kg Google group question I asked when have this problem)
+
 text2image --find_fonts --text ./langdata/chi_sim/chi_sim.training_text --outputbase ./langdata/chi_sim/  --min_coverage 0.999  --fonts_dir=/usr/share/fonts/
+
 how to install fonts?
 Sudo apt-get install *** (need to find from the web)
 fc-list :lang=zh (list all Chinese fonts available in the system)
 fc-match Arial (find Arial fonts available?)
 
-some fonts cannot be found and installed from internet, added the following to src/training/language-specific.sh instead (these need to also be found in langdata/font_properties, otherwise need to add them to font_properties too)
+Some fonts cannot be found and installed from internet, install and add the following fonts to src/training/language-specific.sh instead (these need to also be found in langdata/font_properties, otherwise need to add them to font_properties too).
 
    "AR PL UKai HK" \
    
@@ -236,26 +255,30 @@ some fonts cannot be found and installed from internet, added the following to s
 Useful links about how to slove this problem:
 
 https://github.com/tesseract-ocr/tesseract/wiki/Fonts
+
 https://github.com/tesseract-ocr/langdata_lstm/blob/master/chi_sim/okfonts.txt
+
 https://github.com/tesseract-ocr/langdata/blob/master/font_properties
 
-### Adding ↓ to chi_sim.traineddata
+### Continue after solve the font problem
 After installing necessary fonts, from tesstutorial/tesseract run
-(this step creates training data, the training text created here is equivalent to the text used to train base tesseract not langdata_lstm)
 
 src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata_only \
   --noextract_font_properties --langdata_dir ../langdata \
   --tessdata_dir ./tessdata --output_dir ~/tesstutorial/trainarrows
-
-(create evaluation data for the font in fontlist)
+  
+(this step creates training data, the training text created here is equivalent to the text used to train base tesseract not langdata_lstm)
 
 src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata_only \
   --noextract_font_properties --langdata_dir ../langdata \
   --tessdata_dir ./tessdata \
   --fontlist " AR PL UKai TW " --output_dir ~/tesstutorial/evalarrows
+  
+(create evaluation data for the font in fontlist)
 
 combine_tessdata -e tessdata/best/chi_sim.traineddata \
   ~/tesstutorial/trainarrows2/chi_sim.lstm
+  
 (created chi_sim.lstm file)
 
 lstmtraining --model_output ~/tesstutorial/trainarrows/arrows \
@@ -291,8 +314,7 @@ lstmtraining --stop_training \
   --traineddata ~/tesstutorial/trainarrows/chi_sim/chi_sim.traineddata \
   --model_output ~/tesstutorial/trainarrows/chi_sim.traineddata
 
-### Adding ± to chi_sim.traineddata
-to check why arrows don’t work after training, now test on ± to see whether it works (The result is it works, tesseract can recognize ± after the training! (replace the original chi_sim.traineddata with the chi_sim.traineddata generated from the training), just need to insert enough amount of ±, for a very good result fitted to our purpose (for example, labtest report), there are a lot of things that need to be tuned for the training, for example, the training text, the fonts used for training, the iterations, and you probably need to retrain a few layers instead of fine tuning for a few characters, especially for chi_sim)
+### Adding ± to chi_sim
 
 grep ± langdata/chi_sim/chi_sim.training_text
 nano langdata/chi_sim/chi_sim.training_text
