@@ -184,17 +184,11 @@ The above command created engeval and engtrain in tesstutorial folder
 - mkdir -p ~/tesstutorial/engoutput
 
 - lstmtraining --debug_interval 100 \
-
   --traineddata ~/tesstutorial/engtrain/eng/eng.traineddata \
-  
   --net_spec '[1,36,0,1 Ct3,3,16 Mp3,3 Lfys48 Lfx96 Lrx96 Lfx256 O1c111]' \
-  
   --model_output ~/tesstutorial/engoutput/base --learning_rate 20e-4 \
-  
   --train_listfile ~/tesstutorial/engtrain/eng.training_files.txt \
-  
   --eval_listfile ~/tesstutorial/engeval/eng.training_files.txt \
-  
   --max_iterations 5000 &>~/tesstutorial/engoutput/basetrain.log
 
 In a separate window monitor the log file:
@@ -204,9 +198,7 @@ In a separate window monitor the log file:
 Test training result on ‘Impact’ font:
 
 - lstmeval --model ~/tesstutorial/engoutput/base_checkpoint \
-
   --traineddata ~/tesstutorial/engtrain/eng/eng.traineddata \
-  
   --eval_listfile ~/tesstutorial/engeval/eng.training_files.txt
   
 High error rate
