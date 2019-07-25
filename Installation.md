@@ -21,15 +21,13 @@ https://groups.google.com/forum/#!forum/tesseract-ocr // Google group where you 
 
 // tessdata folder, need to download extra traineddata to this folder for tesseract to work with other languages than eng
 
-
 /usr/local/share/tessdata/configs/
 
 // location of configs for tesseract, for running tesseract from terminal, need to put your whitelist here, when using tesserocr, there's no need to add them here
 
-
 tesseract imagepath outputfilepath(without file extension) -l chi_sim --psm 6 configs
 
-//running tesseract from terminal:
+// running tesseract from terminal:
 
 Example:
 
@@ -46,18 +44,31 @@ whitelist_blood.txt should be in folder /usr/local/share/tessdata/configs, can a
 ## Installation
 ### Install Dependicies
 sudo apt-get install g++ # or clang++ (presumably) //I chose g++
+
 sudo apt-get install autoconf automake libtool
+
 sudo apt-get install pkg-config
+
 sudo apt-get install libpng-dev
+
 sudo apt-get install libjpeg8-dev
+
 sudo apt-get install libtiff5-dev
+
 sudo apt-get install zlib1g-dev
+
 for building training tools:
+
 sudo apt-get install libicu-dev
+
 sudo apt-get install libpango1.0-dev
+
 sudo apt-get install libcairo2-dev
+
 sudo apt-get install libleptonica-dev
+
 Error: Unable to locate package libleptonica-dev
+
 Installed Leptonica1.78.0 manually following http://www.leptonica.org/source/README.html#BUILDING
 
 ### Install Tesseract
