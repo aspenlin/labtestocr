@@ -254,8 +254,11 @@ src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata
 text2image --find_fonts --text ./langdata/chi_sim/chi_sim.training_text --outputbase ./langdata/chi_sim/  --min_coverage 0.999  --fonts_dir=/usr/share/fonts/
 
 how to install fonts?
+
 Sudo apt-get install *** (need to find from the web)
+
 fc-list :lang=zh (list all Chinese fonts available in the system)
+
 fc-match Arial (find Arial fonts available?)
 
 Some fonts cannot be found and installed from internet, install and add the following fonts to src/training/language-specific.sh instead (these need to also be found in langdata/font_properties, otherwise need to add them to font_properties too).
@@ -317,15 +320,25 @@ lstmtraining --model_output ~/tesstutorial/trainarrows/arrows \
   --max_iterations 3600
 
 combine_tessdata -d tesstutorial/tesseract/tessdata/best/chi_sim.traineddata
+
 result:
+
 Version string:4.00.00alpha:chi_sim:synth20170629:[1,48,0,1Ct3,3,16Mp3,3Lfys64Lfx96Lrx96Lfx512O1c1]
+
 0:config:size=1966, offset=192
+
 17:lstm:size=12152851, offset=2158
+
 18:lstm-punc-dawg:size=282, offset=12155009
+
 19:lstm-word-dawg:size=590634, offset=12155291
+
 20:lstm-number-dawg:size=82, offset=12745925
+
 21:lstm-unicharset:size=258834, offset=12746007
+
 22:lstm-recoder:size=72494, offset=13004841
+
 23:version:size=84, offset=13077335
 
 lstmeval --model ~/tesstutorial/trainarrows/arrows_checkpoint \
