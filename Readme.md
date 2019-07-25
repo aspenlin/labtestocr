@@ -16,16 +16,23 @@ To set up swagger interface for Labtest_OCR, run
 pm2 start python3 swagger_http.py
 ```
 from folder flaskocr
+
+the swagger interface can be view from: http://ml.siuvo.com:5000/
+
 For an example of bloodTest report:
+
 https://1.bp.blogspot.com/-QkiATzoGUko/XFL9ZvmNO7I/AAAAAAAACM4/0xr7hVD0bqsvxmfAHxLIu1gtRjDD2yYQQCLcBGAs/s1600/c1-1.jpg
 
 For an example of urineTest report:
+
 https://gss0.baidu.com/9fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/0dd7912397dda144a7a23964b0b7d0a20df486b8.jpg
 
 For an example of stoolTest report:
+
 http://askimg.39.net/topic/20150319/785494.jpg
 
 For psa report:
+
 http://wap.xcgwk.com/uploads/allimg/170419/1-1F419103348.jpg
 
 # Install and train Tesseract
