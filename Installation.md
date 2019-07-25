@@ -383,11 +383,8 @@ Version string:4.00.00alpha:chi_sim:synth20170629:[1,48,0,1Ct3,3,16Mp3,3Lfys64Lf
   grep ↑
 
 - lstmtraining --stop_training \
-
   --continue_from ~/tesstutorial/trainarrows/arrows_checkpoint \
-  
   --traineddata ~/tesstutorial/trainarrows/chi_sim/chi_sim.traineddata \
-  
   --model_output ~/tesstutorial/trainarrows/chi_sim.traineddata
 
 ### Adding ± to chi_sim
@@ -397,32 +394,21 @@ Version string:4.00.00alpha:chi_sim:synth20170629:[1,48,0,1Ct3,3,16Mp3,3Lfys64Lf
 - nano langdata/chi_sim/chi_sim.training_text, then inserted ± 
 
 - src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata_only \
-
   --noextract_font_properties --langdata_dir ../langdata \
-  
   --tessdata_dir ./tessdata --output_dir ~/tesstutorial/trainplusminuszh
 
 - src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata_only \
-
   --noextract_font_properties --langdata_dir ../langdata \
-  
   --tessdata_dir ./tessdata \
-  
   --fontlist " AR PL UKai TW " --output_dir ~/tesstutorial/evalplusminuszh
 
 - combine_tessdata -e tessdata/best/chi_sim.traineddata \
-
   ~/tesstutorial/trainplusminuszh/chi_sim.lstm
   
 
 - lstmtraining --model_output ~/tesstutorial/trainplusminuszh/plusminuszh \
-
   --continue_from ~/tesstutorial/trainplusminuszh/chi_sim.lstm \
-  
   --traineddata ~/tesstutorial/trainplusminuszh/chi_sim/chi_sim.traineddata \
-  
   --old_traineddata tessdata/best/chi_sim.traineddata \
-  
   --train_listfile ~/tesstutorial/trainplusminuszh/chi_sim.training_files.txt \
-  
   --max_iterations 3600
