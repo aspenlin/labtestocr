@@ -1,0 +1,83 @@
+{
+    "itemId": "stoolTest",
+    "displayName_en": "Stool Test",
+    "displayName_zh": "便检",
+    "AVSchema": {
+        "color": {
+            "title_zh": "颜色",
+            "type": "string"
+        },
+        "outlook": {
+            "title_zh": "性状",
+            "type": "number"
+        }
+        "mucus": {
+            "title_zh": "粘液",
+            "type": "string"
+        },
+        "whiteBloodCell": {
+            "title_zh": "白细胞",
+            "type": "string"
+        }
+        "redBloodCell": {
+            "title_zh": "红细胞",
+            "type": "string"
+        },
+        "pusCell": {
+            "title_zh": "脓细胞",
+            "type": "string"
+        }
+        "epithelialCell": {
+            "title_zh": "上皮细胞",
+            "type": "string"
+        },
+        "plantCell": {
+            "title_zh": "植物细胞",
+            "type": "string"
+        }
+        "muscleFiber": {
+            "title_zh": "肌肉纤维",
+            "type": "string"
+        },
+        "fatGlobule": {
+            "title_zh": "脂肪球",
+            "type": "string"
+        }
+        "conjugatedFattvacid": {
+            "title_zh": "结合脂肪酸",
+            "type": "string"
+        },
+        "blood": {
+            "title_zh": "隐血",
+            "type": "string"
+        }
+        "phagocyte": {
+            "title_zh": "吞噬细胞",
+            "type": "string"
+        },
+        "parasite": {
+            "title_zh": "寄生虫",
+            "type": "string"
+        }
+        "parasiteOva": {
+            "title_zh": "虫卵",
+            "type": "string"
+        }
+        "rotavirus": {
+            "title_zh": "轮状病毒",
+            "type": "string"
+        }
+        "mold": {
+            "title_zh": "霉菌",
+            "type": "string"
+        }
+        "starchGranule": {
+            "title_zh": "淀粉颗粒",
+            "type": "string"
+        },
+        "others": {
+            "title_zh": "其他",
+            "type": "string"
+        }
+    }
+}

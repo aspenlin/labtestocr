@@ -2,13 +2,11 @@
 # tesseract version 5.0.0-alpha-152-g17c8a, built from github source
 # python version 3.5.2, tesserocr version 2.4.0, is a python wrapper for Tesseract
 # fuzzywuzzy version 0.17.0
-# cv2 version 4.1.0
 # Usage: for OCR an input image and parse result for different tests in a labtest report
 import re
 from tesserocr import PyTessBaseAPI
 from wand.image import Image
 from fuzzywuzzy import fuzz, process
-import cv2
 
 class stooltest:
     # these will be initialized when the class is called
@@ -37,7 +35,6 @@ class stooltest:
 
     # one test item can have different names from different hospitals
     # this dict is for including all the different names
-    # can be refined for better results    
     def test_items_dict(self):
         stool_dict = {}
         stool_dict['颜色'] = ['颜色','外观','颜色形态','颜色\s*\(\s*Colour\s*\)']
@@ -71,52 +68,55 @@ class stooltest:
         [result.setdefault(test, []) for test in tests]
         return result
     
-    # preprocess the image, resize and save
-    # main problem of an image: small size, low contrast, wavy
-    def image_process(self):
-        img = cv2.imread(self.imgpath, 0)
-        height, width = img.shape[0], img.shape[1]
-        scale = self.width_pixel/width
-        img = cv2.resize(img, (0,0), fx=scale, fy=scale)
-        # contrast
-#         clahe = cv2.createCLAHE(clipLimit=0.5, tileGridSize=(8,8))
-#         img = clahe.apply(img)
-#         img = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY,11,5)
-        
-        # Otsu's thresholding after Gaussian filtering
-#         img = cv2.GaussianBlur(img,(5,5),0)
-#         _, img = cv2.threshold(img,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
-        
-        if self.imgpath[-4] == '.':
-            self.imgpath = ''.join([self.imgpath[:-4], '_processed', self.imgpath[-4:]])
-        else:
-            self.imgpath = ''.join([self.imgpath[:-5], '_processed', self.imgpath[-5:]])
-        cv2.imwrite(self.imgpath, img)
-        return self.imgpath
+    # def image_process(self):
+    #     with Image(filename=self.imgpath) as img:
+    #     #     get the original image width
+    #         pixel_x, pixel_y = img.size[0], img.size[1]
+    #     #     how many times we need to scale up/down
+    #         if pixel_x > pixel_y:
+    #             with img.clone() as i:
+    #         #         resize image to this width and this height
+    #                 i.resize(1920, 1080)
+    #                 i.contrast_stretch(black_point = 0.15)
+    #         #     add a 5*5pixel black border to the image, this will in general increase the accuracy of tesseract
+    #                 # i.border('black', 5, 5)
+    #                 if self.imgpath[-4] == '.':
+    #                     self.imgpath = ''.join([self.imgpath[:-4], '_processed', self.imgpath[-4:]])
+    #                 else:
+    #                     self.imgpath = ''.join([self.imgpath[:-5], '_processed', self.imgpath[-5:]])
+    #                 i.save(filename=self.imgpath)
+
+    #         elif pixel_x <= pixel_y:
+    #             with img.clone() as i:
+    #                 i.resize(1080, 1920)
+    #                 i.contrast_stretch(black_point = 0.10)
+    #                 if self.imgpath[-4] == '.':
+    #                     self.imgpath = ''.join([self.imgpath[:-4], '_processed', self.imgpath[-4:]])
+    #                 else:
+    #                     self.imgpath = ''.join([self.imgpath[:-5], '_processed', self.imgpath[-5:]])
+    #                 i.save(filename=self.imgpath)
+    #     return self.imgpath
 
     # preprocess the image, resize and save
-    # main problem of an image: small size, low contrast, wavy
-#     def image_process(self):
-#         with Image(filename=self.imgpath) as img:
-#             #get the original image width
-#             pixel_x = img.size[0]
-#             #how many times we need to scale up/down
-#             scale = int(self.width_pixel / pixel_x)
-#             if scale < 1:
-#                 scale = 1
-#             with img.clone() as i:
-#                 #resize image to this width and this height
-#                 i.resize(int(i.width * scale), int(i.height * scale))
-#                 #add a 5*5pixel black border to the image, this will in general increase the accuracy of tesseract
-#                 # i.border('black', 5, 5)
-#                 i.contrast_stretch(black_point=0.05)
-#                 i = cv2.adaptiveThreshold(i,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY,11,2)
-#                 if self.imgpath[-4] == '.':
-#                     self.imgpath = ''.join([self.imgpath[:-4], '_processed', self.imgpath[-4:]])
-#                 else:
-#                     self.imgpath = ''.join([self.imgpath[:-5], '_processed', self.imgpath[-5:]])
-#                 i.save(filename=self.imgpath)
-#         return self.imgpath
+    def image_process(self):
+        with Image(filename=self.imgpath) as img:
+            #get the original image width
+            pixel_x = img.size[0]
+            #how many times we need to scale up/down
+            scale = int(self.width_pixel / pixel_x)
+            if scale < 1:
+                scale = 1
+            with img.clone() as i:
+                #resize image to this width and this height
+                i.resize(int(i.width * scale), int(i.height * scale))
+                #add a 5*5pixel black border to the image, this will in general increase the accuracy of tesseract
+                # i.border('black', 5, 5)
+                if self.imgpath[-4] == '.':
+                    self.imgpath = ''.join([self.imgpath[:-4], '_processed', self.imgpath[-4:]])
+                else:
+                    self.imgpath = ''.join([self.imgpath[:-5], '_processed', self.imgpath[-5:]])
+                i.save(filename=self.imgpath)
+        return self.imgpath
     
     # tesseract OCR
     def tess_result(self):
@@ -139,9 +139,6 @@ class stooltest:
                 value = re.findall(self.regex_rule(name), self.text)
                 # print(name, value)
                 if value:
-                    # print('perfect match', value)
-                    # value[0][0] is useless
-                    # value[0][1] is the result of a test
                     self.result_dict[k].append(value[0][1])
                     conf = self.conf_score(name, value[0][1])
                     self.result_dict[k].append(conf)
@@ -152,16 +149,16 @@ class stooltest:
             # if perfect match didn't find anything for a certain test
             if not v:
                 fuzzy = process.extractOne(k, self.text_split, scorer=fuzz.ratio)
-                # confidence score defined by fuzz.ratio                
                 fuzz_ratio = fuzz.ratio(fuzzy[0], k)
                 # go through all the different variations of names 
                 for name in self.test_items_dict[k]:
+                    # seems slash in name doesn't matter for process.extractOne
                     fuzzy_new = process.extractOne(name, self.text_split, scorer=fuzz.ratio)
                     fuzz_ratio_new = fuzz.ratio(fuzzy_new[0], name)
                     # print(name, fuzzy_new, fuzz_ratio_new)
                     if fuzz_ratio_new > fuzz_ratio:
                         fuzzy = fuzzy_new
-                # if string fuzzy matching acore is higher than 60
+                # if string matching acore is higher than 60
                 if fuzzy[1] >= 60:
                     match = fuzzy[0]
                     # add \ in front of ( and ) for regular expression
@@ -170,10 +167,7 @@ class stooltest:
                     # use regular expression to match the value of tests
                     value = re.findall(self.regex_rule(match), self.text)
                     if value:
-#                         print('fuzzy match', value)
-                        # value[0][1] is the result of a test
                         self.result_dict[k].append(value[0][1])
-                        # match_copy here doesn't include any ( or ) or \s*
                         conf = self.conf_score(match_copy, value[0][1])
                         self.result_dict[k].append(conf*fuzzy[1]/100)
                         
@@ -228,8 +222,9 @@ class stooltest:
         return text
     
     def conf_score(self, match, value):
-        # convert reg expression defined in test_items_dict to normal string
+        # convert reg expression to normal string
         # otherwise won't be able to find 
+        # don't think it necessary here because match passed to here should should not include \
         if '\s*' in match:
             match = match.replace('\s*', '')
         if '\s+' in match:
@@ -238,10 +233,8 @@ class stooltest:
             match = match.replace('\(', '(')
         if '\)' in match:
             match = match.replace('\)', ')')
-        # probably no need to use replace here, since in names defined in test_items_dict there's no space
-        # exclude is to find the position of names, values must be after the names in the text        
+            # probably no need to use replace here
         exclude = self.characters.find(match.replace(' ', ''))
-        # start index of the value in the text(without spaces)      
         start = self.characters[exclude:].find(value) + exclude
         end = start + len(value)
         conf, total = 0, 100*len(value)
@@ -254,7 +247,6 @@ class stooltest:
     def convert_for_regex(self, match):
         if '(' in match:
             index = match.find('(')
-            # is actually only adding one \ here, the other one is for convert            
             match = match[:index] + '\\' + match[index:]
         if ')' in match:
             index = match.find(')')
@@ -262,7 +254,6 @@ class stooltest:
         return match
 
     def regex_rule(self, name):
-        # can only have two ()s where the content in the sencond () will be what we want     
         return ''.join([name, '(\s*)(\S{1,6})'])
 
     def save_text(self):
@@ -340,10 +331,10 @@ class urinetest(stooltest):
         return urine_dict
 
 
-class bloodTest(stooltest):
+class bloodtest(stooltest):
 # '肺炎支原体IgM' gives '阴阳性' not numbers, other tests give number as results
     def regex_rule(self, name):
-        exceptions = self.test_items_dict['mycoplasmaPneumoniaeIgM'] + self.test_items_dict['cReactiveProtein']
+        exceptions = self.test_items_dict['肺炎支原体IgM'] + self.test_items_dict['C反应蛋白']
         if all(e not in name for e in exceptions):
             return ''.join([name, '(\D*)(\d+\.?\d{0,3})'])
         else:
@@ -361,49 +352,51 @@ class bloodTest(stooltest):
 
     def test_items_dict(self):
         blood_dict = {}
-        blood_dict['cReactiveProtein'] = ['CRP','C-反应蛋白','C反应蛋白']
-        blood_dict['whiteBloodCellCount'] = ['白细胞计数','白细胞数目','白细胞\s+']
-        blood_dict['redBloodCellCount'] = ['红细胞计数','红细胞数目','红细胞\s+']
-        blood_dict['neutrophilPercent'] = ['中性粒细胞%','中性粒细胞百分比','中性粒细胞比率','嗜中性粒细胞比值','中性分叶核粒细胞绝对数']
-        blood_dict['neutrophilCount'] = ['中性粒细胞绝对值','中性粒细胞4','中性粒细胞数目','中性粒细胞计数','中性粒细胞数','嗜中性粒细胞数','中性细胞数','中性分叶核粒细胞百分数']
-        blood_dict['lymphocytePercent'] = ['淋巴细胞%','淋巴细胞百分比','淋巴细胞比值','淋巴细胞比率','淋巴细胞百分数','淋巴细胞绝对数']
-        blood_dict['lymphocyteCount'] = ['淋巴细胞4','淋巴细胞数目','淋巴细胞计数','淋巴细胞数','淋巴细胞绝对值']
-        blood_dict['monocytesPercent'] = ['单核细胞%','单核细胞百分比','单核细胞比值','单核细胞百分数']
-        blood_dict['monocytesCount'] = ['单核细胞绝对值','单核细胞4','单核细胞数目','单核细胞计数','单核细胞数','单核细胞','单核细胞','单核细胞绝对数']
-        blood_dict['eosinophilGranulocytePercent'] = ['嗜酸粒细胞%','嗜酸性粒细胞%','嗜酸性粒细胞百分比','嗜酸性粒细胞比值','嗜酸性细胞百分比','嗜酸性粒细胞比率','嗜酸性粒细胞百分数']
-        blood_dict['basophilGranulocytePercent'] = ['嗜碱粒细胞%','嗜碱性粒细胞%','嗜碱性粒细胞百分比','嗜碱性粒细胞比值','嗜碱性细胞百分比','嗜碱性粒细胞比率','嗜碱性粒细胞百分数']
-        blood_dict['eosinophilGranulocyteCount'] = ['嗜酸粒细胞绝对值','嗜酸性粒细胞','嗜酸性粒细胞数目','嗜酸性粒细胞计数','嗜酸性粒细胞数','嗜酸性细胞计数','嗜酸性粒细胞','嗜酸性粒细胞绝对数']
-        blood_dict['basophilGranulocyteCount'] = ['嗜碱粒细胞绝对值','嗜碱性粒细胞','嗜碱性粒细胞数目','嗜碱性细胞计数','嗜碱性细胞','嗜碱性细胞数','嗜碱性细胞计数','嗜碱性粒细胞','嗜碱性粒细胞绝对数']
-#         need to figure out different 血红蛋白
-        blood_dict['hemoglobin'] = ['血红蛋白\s+','血红蛋白测定','血红蛋白浓度']
-        blood_dict['hemoglobinDistributionWidth'] = ['血红蛋白分布宽度']
-        blood_dict['meanCorpuscularVolume'] = ['平均红细胞体积','红细胞平均体积']
-        blood_dict['meanCorpuscularHemoglobinAmount'] = ['平均血红蛋白量','平均红细胞血红蛋白含量','平均红细胞血红蛋白量','平均红细胞血红蛋白','平均RBC血红蛋白量','平均红细胞Hb含量']
-        blood_dict['meanCorpuscularHemoglobinConcen'] = ['平均血红蛋白浓度','平均红细胞血红蛋白浓度','平均RBC血红蛋白浓度','平均红细胞Hb浓度']
-        blood_dict['redCellDistributionWidth'] = ['红细胞分布宽度','红细胞体积分布-W','红细胞体积分布宽度']
-        blood_dict['redCellDistributionWidthCV'] = ['红细胞分布宽度变异系数','红细胞分布宽度变异','RBC分布宽度变异系数','RDW-CV','红细胞体积分布宽度CV']
-        blood_dict['redCellDistributionWidthSD'] = ['红细胞分布宽度标准差','RBC分布宽度标准差','红细胞体积分布宽度SD']
-        blood_dict['plateletsCount'] = ['血小板计数','血小板数目','血小板\s+']
-        blood_dict['plateletcrit'] = ['血小板压积','血小板比积']
-        blood_dict['redBloodCellCount'] = ['血小板比容']
-        blood_dict['meanPlateletVolume'] = ['平均血小板体积']
-        blood_dict['largePlateletRatio'] = ['大型血小板比率']
-        blood_dict['plateletDistributionWidth'] = ['血小板分布宽度','血小板体积分布-W','血小板平均分布宽度','血小板体积分布宽度']
-        blood_dict['bloodAmyloidA'] = ['血淀粉样蛋白A','血清淀粉样蛋白A']
-        blood_dict['mycoplasmaPneumoniaeIgM'] = ['肺炎支原体IgM']
-        blood_dict['hematocrit'] = ['红细胞比容测定','红细胞比容','红细胞压积','红细胞比积']
-        blood_dict['reticulocyteCount'] = ['网织红细胞计数']
-        blood_dict['reticulocytePercent'] = ['网织红细胞百分比']
-        blood_dict['reticulocyteHemoglobinContent'] = ['网织红细胞血红蛋白含量']
-        blood_dict['unstainedLargeCellPercent'] = ['未染色大细胞百分比']
-        blood_dict['randomGlucoseAssay'] = ['随机葡萄糖测定']
+        blood_dict['C反应蛋白'] = ['CRP','C-反应蛋白','C反应蛋白']
+        blood_dict['白细胞计数'] = ['白细胞计数','白细胞数目','白细胞\s+']
+        blood_dict['红细胞计数'] = ['红细胞计数','红细胞数目','红细胞\s+']
+        blood_dict['中性粒细胞百分比'] = ['中性粒细胞%','中性粒细胞百分比','中性粒细胞比率','嗜中性粒细胞比值']
+        blood_dict['中性粒细胞绝对值'] = ['中性粒细胞绝对值','中性粒细胞4','中性粒细胞数目','中性粒细胞计数','中性粒细胞数','嗜中性粒细胞数','中性细胞数']
+        blood_dict['中间细胞绝对值'] = ['中间细胞绝对值']
+        blood_dict['中间细胞百分比'] = ['中间细胞百分比']
+        blood_dict['淋巴细胞百分比'] = ['淋巴细胞%','淋巴细胞百分比','淋巴细胞比值','淋巴细胞比率']
+        blood_dict['淋巴细胞绝对值'] = ['淋巴细胞4','淋巴细胞数目','淋巴细胞计数','淋巴细胞数','淋巴细胞绝对值']
+        blood_dict['单核细胞百分比'] = ['单核细胞%','单核细胞百分比','单核细胞比值']
+        blood_dict['单核细胞绝对值'] = ['单核细胞绝对值','单核细胞4','单核细胞数目','单核细胞计数','单核细胞数','单核细胞','单核细胞4']
+        blood_dict['嗜酸性粒细胞百分比'] = ['嗜酸粒细胞%','嗜酸性粒细胞%','嗜酸性粒细胞百分比','嗜酸性粒细胞比值','嗜酸性细胞百分比','嗜酸性粒细胞比率']
+        blood_dict['嗜碱性粒细胞百分比'] = ['嗜碱粒细胞%','嗜碱性粒细胞%','嗜碱性粒细胞百分比','嗜碱性粒细胞比值','嗜碱性细胞百分比','嗜碱性粒细胞比率']
+        blood_dict['嗜酸粒细胞绝对值'] = ['嗜酸粒细胞绝对值','嗜酸性粒细胞4','嗜酸性粒细胞数目','嗜酸性粒细胞计数','嗜酸性粒细胞数','嗜酸性细胞计数','嗜酸性粒细胞']
+        blood_dict['嗜碱粒细胞绝对值'] = ['嗜碱粒细胞绝对值','嗜碱性粒细胞4','嗜碱性粒细胞数目','嗜碱性细胞计数','嗜碱性细胞','嗜碱性细胞数','嗜碱性细胞计数','嗜碱性粒细胞']
+        blood_dict['血红蛋白'] = ['血红蛋白\s+','血红蛋白测定','血红蛋白浓度']
+        blood_dict['血红蛋白分布宽度'] = ['血红蛋白分布宽度']
+        blood_dict['红细胞压积'] = ['红细胞压积','红细胞比积']
+        blood_dict['平均红细胞体积'] = ['平均红细胞体积','红细胞平均体积']
+        blood_dict['平均血红蛋白量'] = ['平均血红蛋白量','平均红细胞血红蛋白含量','平均红细胞血红蛋白量','平均红细胞血红蛋白','平均RBC血红蛋白量','平均红细胞Hb含量']
+        blood_dict['平均血红蛋白浓度'] = ['平均血红蛋白浓度','平均红细胞血红蛋白浓度','平均RBC血红蛋白浓度','平均红细胞Hb浓度']
+        blood_dict['单个细胞血红蛋白浓度'] = ['单个细胞血红蛋白浓度']
+        blood_dict['单个细胞血红蛋白'] = ['单个细胞血红蛋白']
+        blood_dict['红细胞分布宽度'] = ['红细胞分布宽度','红细胞体积分布-W','红细胞体积分布宽度']
+        blood_dict['红细胞分布宽度变异系数'] = ['红细胞分布宽度变异系数','红细胞分布宽度变异','RBC分布宽度变异系数','RDW-CV']
+        blood_dict['红细胞分布宽度标准差'] = ['红细胞分布宽度标准差','RBC分布宽度标准差']
+        blood_dict['血小板计数'] = ['血小板计数','血小板数目','血小板\s+']
+        blood_dict['血小板压积'] = ['血小板压积','血小板比积']
+        blood_dict['平均血小板体积'] = ['平均血小板体积']
+        blood_dict['大型血小板比率'] = ['大型血小板比率']
+        blood_dict['血小板分布宽度'] = ['血小板分布宽度','血小板体积分布-W','血小板平均分布宽度','血小板体积分布宽度']
+        blood_dict['血淀粉样蛋白A'] = ['血淀粉样蛋白A','血清淀粉样蛋白A']
+        blood_dict['肺炎支原体IgM'] = ['肺炎支原体IgM']
+        blood_dict['红细胞比容'] = ['红细胞比容测定','红细胞比容']
+        blood_dict['网织红细胞计数'] = ['网织红细胞计数']
+        blood_dict['网织红细胞百分比'] = ['网织红细胞百分比']
+        blood_dict['网织红细胞血红蛋白含量'] = ['网织红细胞血红蛋白含量']
+        blood_dict['未染色大细胞百分比'] = ['未染色大细胞百分比']
+        blood_dict['随机葡萄糖测定'] = ['随机葡萄糖测定']
         for k, v in blood_dict.items():
             v.sort(key = lambda s: -len(s))
         return blood_dict
 
 
 class psa(stooltest):
-    
     def regex_rule(self, name):
         return ''.join([name, '(\D*)(\d+\.\d{0,3})'])
 

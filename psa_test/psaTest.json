@@ -1,0 +1,19 @@
+{
+    "itemId": "psaTest",
+    "displayName_en": "PSA Test",
+    "displayName_zh": "前列腺检查",
+    "AVSchema": {
+        "totalPsa": {
+            "title_zh": "总前列腺特异抗原",
+            "type": "number"
+        },
+        "freePsa": {
+            "title_zh": "游离前列腺特异抗原",
+            "type": "number"
+        }
+        "ratio": {
+            "title_zh": "比值",
+            "type": "number"
+        },
+    }
+}

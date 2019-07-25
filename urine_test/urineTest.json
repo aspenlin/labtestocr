@@ -1,0 +1,180 @@
+//note type number/string here means it can sometimes be string and sometimes number
+{
+    "itemId": "urineTest",
+    "displayName_en": "Urine Test",
+    "displayName_zh": "尿液分析",
+    "AVSchema": {
+        "urobilinogen": {
+            "title_zh": "尿胆原",
+            "type": "string"
+        },
+        "bilirubin": {
+            "title_zh": "胆红素",
+            "type": "string"
+        }
+        "ketones": {
+            "title_zh": "酮体",
+            "type": "string"
+        },
+        "blood": {
+            "title_zh": "隐血",
+            "type": "string"
+        }
+        "protein": {
+            "title_zh": "尿蛋白",
+            "type": "string"
+        },
+        "nitrite": {
+            "title_zh": "亚硝酸盐",
+            "type": "string"
+        }
+        "glucose": {
+            "title_zh": "葡萄糖",
+            "type": "string"
+        },
+        "specificGravity": {
+            "title_zh": "尿比重",
+            "type": "number"
+        }
+        "pH": {
+            "title_zh": "酸碱度",
+            "type": "number/string"
+        }
+        "urineColor": {
+            "title_zh": "颜色",
+            "type": "string"
+        },
+        "urineClarity": {
+            "title_zh": "浑浊度",
+            "type": "string"
+        }
+        "conductivity": {
+            "title_zh": "电导率",
+            "type": "number"
+        },
+        "conductivityInfo": {
+            "title_zh": "电导率信息",
+            "type": "string"
+        }
+        "crystals": {
+            "title_zh": "结晶",
+            "type": "number/string"
+        }
+        "yeast": {
+            "title_zh": "类酵母菌",
+            "type": "number"
+        }
+        "mucus": {
+            "title_zh": "粘液丝",
+            "type": "number"
+        }
+        "bacteria": {
+            "title_zh": "细菌",
+            "type": "number"
+        },
+        "vitaminC": {
+            "title_zh": "维生素C",
+            "type": "string"
+        }
+        "completeRedBloodCellPercent": {
+            "title_zh": "完整红细胞比率",
+            "type": "number"
+        },
+        "completeRedBloodCellAmount": {
+            "title_zh": "完整红细胞数量",
+            "type": "number"
+        }
+        "urineTractInfectionInfo": {
+            "title_zh": "尿路感染信息",
+            "type": "string"
+        },
+        "calcium": {
+            "title_zh": "尿钙",
+            "type": "string"
+        }
+        "sperm": {
+            "title_zh": "精子",
+            "type": "string"
+        },
+        "otherForms": {
+            "title_zh": "其他有形成份",
+            "type": "string"
+        }
+        "seventyPercentRbcAverageVolum": {
+            "title_zh": "70%红细胞平均体积",
+            "type": "string"
+        },
+        "whiteBloodCellHpf": {
+            "title_zh": "白细胞(高倍视野)",
+            "type": "number"
+        }
+        "redBloodCellHpf": {
+            "title_zh": "红细胞(高倍视野)",
+            "type": "number"
+        },
+        "epithelialCellHpf": {
+            "title_zh": "上皮细胞(高倍视野)",
+            "type": "number"
+        }
+        "bacteriaHpf": {
+            "title_zh": "细菌(高倍视野)",
+            "type": "string"
+        },
+        "redBloodCellInfo": {
+            "title_zh": "红细胞信息",
+            "type": "string"
+        }
+        "redBloodCellMicroscopy": {
+            "title_zh": "红细胞镜检",
+            "type": "number"
+        },
+        "whiteBloodCellMicroscopy": {
+            "title_zh": "白细胞镜检",
+            "type": "number"
+        }
+        "epithelialCellMicroscopy": {
+            "title_zh": "上皮细胞镜检",
+            "type": "number"
+        },
+        "smallRoundEpithelialCell": {
+            "title_zh": "小圆上皮细胞",
+            "type": "number"
+        }
+        "cast": {
+            "title_zh": "管型",
+            "type": "number"
+        },
+        "pathologicalCast": {
+            "title_zh": "病理管型",
+            "type": "number"
+        }
+        "castLpf": {
+            "title_zh": "管型低倍",
+            "type": "number"
+        },
+        "transparentCastMicroscopy": {
+            "title_zh": "透明管型镜检",
+            "type": "number"
+        }
+        "granularCastMicroscopy": {
+            "title_zh": "颗粒管型镜检",
+            "type": "number"
+        }
+        "bacteriaCastMicroscopy": {
+            "title_zh": "细胞管型镜检",
+            "type": "number"
+        },
+        "whiteBloodCell": {
+            "title_zh": "白细胞",
+            "type": "string"
+        }
+        "whiteBloodCellCount": {
+            "title_zh": "白细胞计数",
+            "type": "number"
+        },
+        "redBloodCellCount": {
+            "title_zh": "红细胞计数",
+            "type": "number"
+        }
+    }
+}

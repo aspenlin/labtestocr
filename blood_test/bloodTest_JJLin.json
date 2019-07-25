@@ -1,0 +1,147 @@
+{
+    "itemId": "bloodTest",
+    "displayName_en": "Blood Test",
+    "displayName_zh": "血细胞分析",
+    "AVSchema": {
+        "cReactiveProtein": {
+            "title_zh": "C反应蛋白",
+            "type": "string"
+        },
+        "redBloodCellCount": {
+            "title_zh": "红细胞计数",
+            "type": "number"
+        }
+        "whiteBloodCellCount": {
+            "title_zh": "白细胞计数",
+            "type": "number"
+        },
+        "neutrophilPercent": {
+            "title_zh": "中性粒细胞百分比",
+            "type": "number"
+        }
+        "neutrophilCount": {
+            "title_zh": "中性粒细胞绝对值",
+            "type": "number"
+        },
+        "lymphocytePercent": {
+            "title_zh": "淋巴细胞百分比",
+            "type": "number"
+        }
+        "lymphocyteCount": {
+            "title_zh": "淋巴细胞绝对值",
+            "type": "number"
+        },
+        "monocytesPercent": {
+            "title_zh": "单核细胞百分比",
+            "type": "number"
+        }
+        "monocytesCount": {
+            "title_zh": "单核细胞绝对值",
+            "type": "number"
+        },
+        "eosinophilGranulocytePercent": {
+            "title_zh": "嗜酸性粒细胞百分比",
+            "type": "number"
+        }
+        "eosinophilGranulocyteCount": {
+            "title_zh": "嗜酸粒细胞绝对值",
+            "type": "number"
+        },
+        "basophilGranulocytePercent": {
+            "title_zh": "嗜碱性粒细胞百分比",
+            "type": "number"
+        }
+        "basophilGranulocyteCount": {
+            "title_zh": "嗜碱粒细胞绝对值",
+            "type": "number"
+        },
+        "hemoglobin": {
+            "title_zh": "血红蛋白",
+            "type": "number"
+        }
+        "hemoglobinDistributionWidth": {
+            "title_zh": "血红蛋白分布宽度",
+            "type": "number"
+        }
+        "hematocrit": {
+            "title_zh": "红细胞比容",
+            "type": "number"
+        }
+        "meanCorpuscularVolume": {
+            "title_zh": "平均红细胞体积",
+            "type": "number"
+        }
+        "meanCorpuscularHemoglobinAmount": {
+            "title_zh": "平均血红蛋白量",
+            "type": "number"
+        },
+        "meanCorpuscularHemoglobinConcen": {
+            "title_zh": "平均血红蛋白浓度",
+            "type": "number"
+        }
+        "redCellDistributionWidth": {
+            "title_zh": "红细胞分布宽度",
+            "type": "number"
+        },
+        "redCellDistributionWidthCV": {
+            "title_zh": "红细胞分布宽度变异系数",
+            "type": "number"
+        }
+        "redCellDistributionWidthSD": {
+            "title_zh": "红细胞分布宽度标准差",
+            "type": "number"
+        },
+        "plateletsCount": {
+            "title_zh": "血小板计数",
+            "type": "number"
+        }
+        "plateletcrit": {
+            "title_zh": "血小板压积",
+            "type": "number"
+        },
+        "redBloodCellCount": {
+            "title_zh": "血小板比容",
+            "type": "number"
+        }
+        "meanPlateletVolume": {
+            "title_zh": "平均血小板体积",
+            "type": "number"
+        },
+        "largePlateletRatio": {
+            "title_zh": "大型血小板比率",
+            "type": "number"
+        }
+        "plateletDistributionWidth": {
+            "title_zh": "血小板分布宽度",
+            "type": "number"
+        },
+        "bloodAmyloidA": {
+            "title_zh": "血淀粉样蛋白A",
+            "type": "number"
+        }
+        "mycoplasmaPneumoniaeIgM": {
+            "title_zh": "肺炎支原体IgM",
+            "type": "string"
+        },
+        "reticulocyteCount": {
+            "title_zh": "网织红细胞计数",
+            "type": "number"
+        }
+        "reticulocytePercent": {
+            "title_zh": "网织红细胞百分比",
+            "type": "number"
+        },
+        "reticulocyteHemoglobinContent": {
+            "title_zh": "网织红细胞血红蛋白含量",
+            "type": "number"
+        }
+        "unstainedLargeCellPercent": {
+            "title_zh": "未染色大细胞百分比",
+            "type": "number"
+        },
+        "randomGlucoseAssay": {
+            "title_zh": "随机葡萄糖测定",
+            "type": "number"
+        }
+    }
+}
