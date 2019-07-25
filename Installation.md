@@ -124,16 +124,16 @@ sudo wget https://github.com/tesseract-ocr/tessdata_best/raw/master/heb.trainedd
 sudo wget https://github.com/tesseract-ocr/tessdata_best/raw/master/chi_sim.traineddata
 ```
 ### Training from scratch
-
-- src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang eng --linedata_only \
+```bash
+  src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang eng --linedata_only \
   --noextract_font_properties --langdata_dir ../langdata \
   --tessdata_dir ./tessdata --output_dir ~/tesstutorial/engtrain
 
-- src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang eng --linedata_only \
+  src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang eng --linedata_only \
   --noextract_font_properties --langdata_dir ../langdata \
   --tessdata_dir ./tessdata \
   --fontlist "Impact Condensed" --output_dir ~/tesstutorial/engeval
-
+```
 (If it runs into error, copy paste the code and run again)
 
 The above command created engeval and engtrain in tesstutorial folder
