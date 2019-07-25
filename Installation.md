@@ -17,21 +17,28 @@ https://github.com/tesseract-ocr/tesseract/wiki/AddOns // AddOns for tesseract, 
 https://groups.google.com/forum/#!forum/tesseract-ocr // Google group where you can ask questions when having problem, usually there will be people reply to you within one day
 
 ## Running instructions
-// location of configs for tesseract, for running tesseract from terminal, need to put your whitelist here, when using tesserocr, there's no need to add them here
-/usr/local/share/tessdata/configs/
-
-// tessdata folder, need to download extra traineddata to this folder for tesseract to work with other languages than eng
 /usr/local/share/tessdata
 
+// tessdata folder, need to download extra traineddata to this folder for tesseract to work with other languages than eng
+
+/usr/local/share/tessdata/configs/
+
+// location of configs for tesseract, for running tesseract from terminal, need to put your whitelist here, when using tesserocr, there's no need to add them here
+
 //running tesseract from terminal:
+
 tesseract imagepath outputfilepath(without file extension) -l chi_sim --psm 6 configs
 
 Example:
 
-tesseract ~/tesseract/lab_test_result/test.jpeg ~/tesseract/blood_test/test -l chi_sim --psm 6 -c preserve_interword_spaces=1 whitelist_blood.txt 
+tesseract ~/tesseract/lab_test_result/test.jpeg ~/tesseract/blood_test/test -l chi_sim --psm 6 -c preserve_interword_spaces=1 whitelist_blood.txt
+
 //whitelist_blood.txt should be in folder /usr/local/share/tessdata/configs, can also replace it with other configs in the folder, like 'box', 'tsv', 'pdf' to get box/tsv/pdf output from tesseract; 
-// '-c preserve_interword_spaces=1' is for changing tesseract default settings, the parameters that can be set can be viewed with // 'tesseract --print-parameters' (there's a hundreds of them, useful ones are 'preserve_interword_spaces', 'tessedit_write_images'); 
+
+// '-c preserve_interword_spaces=1' is for changing tesseract default settings, the parameters that can be set can be viewed with 'tesseract --print-parameters' (there's a hundreds of them, useful ones are 'preserve_interword_spaces', 'tessedit_write_images'); 
+
 // --psm 6 is for setting the segmentation method, view it with 'tesseract --help-extra';
+
 // '-l chi_sim' is for setting language to chi_sim, the available languages can be viewd with 'tesseract --list-langs'
 
 ## Installation
