@@ -392,17 +392,17 @@ lstmtraining --stop_training \
 
 ### Adding ± to chi_sim
 
-grep ± langdata/chi_sim/chi_sim.training_text
+- grep ± langdata/chi_sim/chi_sim.training_text
 
-nano langdata/chi_sim/chi_sim.training_text, then inserted ± 
+- nano langdata/chi_sim/chi_sim.training_text, then inserted ± 
 
-src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata_only \
+- src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata_only \
 
   --noextract_font_properties --langdata_dir ../langdata \
   
   --tessdata_dir ./tessdata --output_dir ~/tesstutorial/trainplusminuszh
 
-src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata_only \
+- src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata_only \
 
   --noextract_font_properties --langdata_dir ../langdata \
   
