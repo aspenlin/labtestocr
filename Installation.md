@@ -1,7 +1,7 @@
 # Info
 Commands for buliding tesseract and tesstrain tools from source for Ubuntu 16.04 on AWS, Jingjing LIN, 2019-07
 
-## Useful links:
+## Useful links
 https://github.com/tesseract-ocr //contains everything about tesseract (different langdata, tessdata etc.)
 https://github.com/tesseract-ocr/tesseract //the source for tesseract, has information about how to use or install tesseract etc.
 https://github.com/tesseract-ocr/tesseract/wiki/Compiling //build tesseract from source, as of 2017-06, only tesseract built from source support whitelist, otherwise whitelist is not supported
@@ -9,7 +9,6 @@ https://github.com/tesseract-ocr/tesseract/wiki/ImproveQuality //about how to im
 https://github.com/tesseract-ocr/tesseract/wiki/TrainingTesseract-4.00 //about how to train tesseract to better fit to your purpose
 https://github.com/tesseract-ocr/tesseract/wiki/AddOns //AddOns for tesseract, has different wrapper for different languages
 https://groups.google.com/forum/#!forum/tesseract-ocr //Google group where you can ask questions when having problem, usually there will be people reply to you within one day
-
 
 ## Running instructions
 //location of configs for tesseract, for running tesseract from terminal, need to put your whitelist here, when using tesserocr, there's no need to add them here
@@ -20,7 +19,6 @@ https://groups.google.com/forum/#!forum/tesseract-ocr //Google group where you c
 tesseract imagepath outputfilepath(without file extension) -l chi_sim --psm 6 configs
 Example:
 tesseract ~/tesseract/lab_test_result/test.jpeg ~/tesseract/blood_test/test -l chi_sim --psm 6 -c preserve_interword_spaces=1 whitelist_blood.txt //whitelist_blood.txt should be in folder /usr/local/share/tessdata/configs, can also replace it with other configs in the folder, like 'box', 'tsv', 'pdf' to get box/tsv/pdf output from tesseract; '-c preserve_interword_spaces=1' is for changing tesseract default settings, the parameters that can be set can be viewed with command 'tesseract --print-parameters' (there's a hundreds of them, useful ones are 'preserve_interword_spaces', 'tessedit_write_images'); --psm 6 is for setting the segmentation method, view it with 'tesseract --help-extra'; '-l chi_sim' is for setting language to chi_sim, the available languages can be viewd with 'tesseract --list-langs'
-
 
 ## Installation
 ### Install Dependicies
@@ -70,7 +68,8 @@ sudo apt install fonts-dejavu
 fc-cache -vf //this is probably for checking fonts available
 
 
-## Set up for tessturotial (training English): Follow instructions in the following link: https://github.com/tesseract-ocr/tesseract/wiki/TrainingTesseract-4.00, If you run into some problems, refer to notes below 
+## Set up for tessturotial (training English): 
+//Follow instructions in the following link: https://github.com/tesseract-ocr/tesseract/wiki/TrainingTesseract-4.00, If you run into some problems, refer to notes below 
 mkdir ~/tesstutorial
 cd ~/tesstutorial
 mkdir langdata
@@ -139,8 +138,7 @@ on full model:
 --model tessdata/best/eng.traineddata --traineddata ~/tesstutorial/engtrain/eng/eng.traineddata --eval_listfile ~/tesstutorial/engtrain/eng.training_files.txt
 Lowest error rate
 
-#################################################################
-Note for retraining tesseract:
+## Training Chinese
 There are a lot of things that need to be tuned for the training for a very good result fitted to your purpose, for example, the training text used, the fonts used for training, the iterations, chi_sim is harder than Latin, you probably need to retrain a few layers instead of fine tuning just a few characters
 The question I asked when having problem training, might be helpful: https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!topic/tesseract-ocr/F2iuSvajHqA
 Also refer to: https://github.com/tesseract-ocr/tesseract/wiki/TrainingTesseract-4.00
@@ -163,7 +161,8 @@ src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata
   --noextract_font_properties --langdata_dir ../langdata \
   --tessdata_dir ./tessdata --output_dir ~/tesstutorial/trainarrows
 
-Problem could not find font named ‘AR PL UKai CN’ (https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!topic/tesseract-ocr/5vLEamZ43Kg Google group question I asked when have this problem)
+### Problem: could not find font named ' ' 
+(https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!topic/tesseract-ocr/5vLEamZ43Kg Google group question I asked when have this problem)
 text2image --find_fonts --text ./langdata/chi_sim/chi_sim.training_text --outputbase ./langdata/chi_sim/  --min_coverage 0.999  --fonts_dir=/usr/share/fonts/
 how to install fonts?
 Sudo apt-get install *** (need to find from the web)
@@ -185,7 +184,8 @@ Useful links about how to slove this problem:
 https://github.com/tesseract-ocr/tesseract/wiki/Fonts
 https://github.com/tesseract-ocr/langdata_lstm/blob/master/chi_sim/okfonts.txt
 https://github.com/tesseract-ocr/langdata/blob/master/font_properties
-&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+### Adding ↓ to chi_sim.traineddata
 After installing necessary fonts, from tesstutorial/tesseract run
 (this step creates training data, the training text created here is equivalent to the text used to train base tesseract not langdata_lstm)
 
@@ -237,7 +237,8 @@ lstmtraining --stop_training \
   --traineddata ~/tesstutorial/trainarrows/chi_sim/chi_sim.traineddata \
   --model_output ~/tesstutorial/trainarrows/chi_sim.traineddata
 
-190617 to check why arrows don’t work after training, now test on ± to see whether it works (The result is it works, tesseract can recognize ± after the training! (replace the original chi_sim.traineddata with the chi_sim.traineddata generated from the training), just need to insert enough amount of ±, for a very good result fitted to our purpose (for example, labtest report), there are a lot of things that need to be tuned for the training, for example, the training text, the fonts used for training, the iterations, and you probably need to retrain a few layers instead of fine tuning for a few characters, especially for chi_sim)
+### Adding ± to chi_sim.traineddata
+to check why arrows don’t work after training, now test on ± to see whether it works (The result is it works, tesseract can recognize ± after the training! (replace the original chi_sim.traineddata with the chi_sim.traineddata generated from the training), just need to insert enough amount of ±, for a very good result fitted to our purpose (for example, labtest report), there are a lot of things that need to be tuned for the training, for example, the training text, the fonts used for training, the iterations, and you probably need to retrain a few layers instead of fine tuning for a few characters, especially for chi_sim)
 
 grep ± langdata/chi_sim/chi_sim.training_text
 nano langdata/chi_sim/chi_sim.training_text
