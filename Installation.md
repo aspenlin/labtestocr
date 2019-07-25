@@ -260,7 +260,9 @@ use nano to insert new chars (↓) to chi_sim.training_text
 from tesstutorial/tesseract run
 
 src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata_only \
+
   --noextract_font_properties --langdata_dir ../langdata \
+  
   --tessdata_dir ./tessdata --output_dir ~/tesstutorial/trainarrows
 
 #### Problem: could not find font named ' ' 
@@ -411,6 +413,7 @@ src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata
 combine_tessdata -e tessdata/best/chi_sim.traineddata \
 
   ~/tesstutorial/trainplusminuszh/chi_sim.lstm
+  
 
 lstmtraining --model_output ~/tesstutorial/trainplusminuszh/plusminuszh \
 
