@@ -124,25 +124,45 @@ fc-cache -vf // this is probably for checking fonts available
 Follow instructions in the following link: https://github.com/tesseract-ocr/tesseract/wiki/TrainingTesseract-4.00, If you run into some problems, refer to notes below 
 
 mkdir ~/tesstutorial
+
 cd ~/tesstutorial
+
 mkdir langdata
+
 cd langdata
+
 sudo wget https://raw.githubusercontent.com/tesseract-ocr/langdata_lstm/master/radical-stroke.txt
+
 sudo wget https://raw.githubusercontent.com/tesseract-ocr/langdata_lstm/master/common.punc
+
 sudo wget https://raw.githubusercontent.com/tesseract-ocr/langdata_lstm/master/font_properties
+
 sudo wget https://raw.githubusercontent.com/tesseract-ocr/langdata/master/Latin.unicharset
+
 sudo wget https://raw.githubusercontent.com/tesseract-ocr/langdata/master/Latin.xheights
+
 mkdir eng
+
 cd eng
+
 sudo wget https://raw.githubusercontent.com/tesseract-ocr/langdata/master/eng/eng.training_text
+
 sudo wget https://raw.githubusercontent.com/tesseract-ocr/langdata/master/eng/eng.punc
+
 sudo wget https://raw.githubusercontent.com/tesseract-ocr/langdata/master/eng/eng.numbers
+
 sudo wget https://raw.githubusercontent.com/tesseract-ocr/langdata/master/eng/eng.wordlist
+
 cd ~/tesstutorial
+
 git clone --depth 1 https://github.com/tesseract-ocr/tesseract.git
+
 cd tesseract/tessdata
+
 sudo wget https://github.com/tesseract-ocr/tessdata_best/raw/master/eng.traineddata
+
 sudo wget https://github.com/tesseract-ocr/tessdata_best/raw/master/heb.traineddata
+
 sudo wget https://github.com/tesseract-ocr/tessdata_best/raw/master/chi_sim.traineddata
 
 ### Training from scratch
@@ -170,6 +190,7 @@ lstmtraining --debug_interval 100 \
   --max_iterations 5000 &>~/tesstutorial/engoutput/basetrain.log
 
 In a separate window monitor the log file:
+
 tail -f ~/tesstutorial/engoutput/basetrain.log
 
 Test training result on ‘Impact’ font:
@@ -204,14 +225,21 @@ Also refer to: https://github.com/tesseract-ocr/tesseract/wiki/TrainingTesseract
 At tesstutorial/langdata/
 
 mkdir chi_sim
+
 cd chi_sim
+
 wget https://raw.githubusercontent.com/tesseract-ocr/langdata/master/chi_sim/chi_sim.training_text
+
 wget https://raw.githubusercontent.com/tesseract-ocr/langdata/master/chi_sim/chi_sim.punc
+
 wget https://raw.githubusercontent.com/tesseract-ocr/langdata/master/chi_sim/chi_sim.numbers
+
 wget https://raw.githubusercontent.com/tesseract-ocr/langdata/master/chi_sim/chi_sim.wordlist
+
 (attention: files in langdata_lstm are much larger than files in langdata, will result in failure when training because the .training_text file is too large)
 
 grep ↓ langdata/chi_sim/chi_sim.training_text (nothing will show up)
+
 use nano to insert new chars (↓) to chi_sim.training_text
 
 from tesstutorial/tesseract run
