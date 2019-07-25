@@ -13,11 +13,11 @@ Medicine_instructions contains tesseract results for some medicine instruction i
 ## Running instruction
 To set up swagger interface for Labtest_OCR, run 
 ```bash
-pm2 start python3 swagger_http.py
+$ pm2 start python3 swagger_http.py
 ```
 from folder flaskocr
 
-the swagger interface can be view from: http://ml.siuvo.com:5000/
+The resulting swagger interface can be view from: http://ml.siuvo.com:5000/
 
 For an example of bloodTest report:
 
@@ -31,7 +31,7 @@ For an example of stoolTest report:
 
 http://askimg.39.net/topic/20150319/785494.jpg
 
-For psa report:
+For an example of psa report:
 
 http://wap.xcgwk.com/uploads/allimg/170419/1-1F419103348.jpg
 
