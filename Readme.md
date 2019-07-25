@@ -1,5 +1,5 @@
 # Info
-This project is for extracting lab test results from a lab test report, the lab test that can be processed for now are blood test, stool test, urine test and psa. For examples of these tests, see images in *_test folders. Other lab tests can be added by adding classes to labtestocr.py.
+This project is for extracting lab test results from a lab test report, the lab test that can be processed for now are blood test, stool test, urine test and psa. For examples of these tests, see images in *_test folders. Other lab tests can also be processed by adding classes to labtestocr.py.
 
 ## Folder information
 Folder flaskocr contains the main python module labtestocr.py, where the classes bloodTest, urineTest, stoolTest, psa are. Swagger set up programs are also here.
