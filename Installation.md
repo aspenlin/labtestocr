@@ -161,7 +161,6 @@ lstmeval --model ~/tesstutorial/engoutput/base_checkpoint \
 --eval_listfile ~/tesstutorial/engeval/eng.training_files.txt
 ```  
 
-
 On 4500 or so fonts: Low error rate
 ```bash
 lstmeval --model tessdata/best/eng.traineddata --traineddata ~/tesstutorial/engtrain/eng/eng.traineddata --eval_listfile ~/tesstutorial/engeval/eng.training_files.txt
@@ -188,31 +187,27 @@ Also refer to: https://github.com/tesseract-ocr/tesseract/wiki/TrainingTesseract
 ### Fine tuning chi_sim (adding ↓)
 
 At tesstutorial/langdata/
-
+```bash
 mkdir chi_sim
-
 cd chi_sim
-
 wget https://raw.githubusercontent.com/tesseract-ocr/langdata/master/chi_sim/chi_sim.training_text
-
 wget https://raw.githubusercontent.com/tesseract-ocr/langdata/master/chi_sim/chi_sim.punc
-
 wget https://raw.githubusercontent.com/tesseract-ocr/langdata/master/chi_sim/chi_sim.numbers
-
 wget https://raw.githubusercontent.com/tesseract-ocr/langdata/master/chi_sim/chi_sim.wordlist
-
+```
 (attention: files in langdata_lstm are much larger than files in langdata, will result in failure when training because the .training_text file is too large)
 
-grep ↓ langdata/chi_sim/chi_sim.training_text (nothing will show up)
-
+```bash
+grep ↓ langdata/chi_sim/chi_sim.training_text // nothing will show up
+```
 use nano to insert new chars (↓) to chi_sim.training_text
 
 from tesstutorial/tesseract run
-
-- src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata_only \
-  --noextract_font_properties --langdata_dir ../langdata \
-  --tessdata_dir ./tessdata --output_dir ~/tesstutorial/trainarrows
-
+```bash
+src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata_only \
+--noextract_font_properties --langdata_dir ../langdata \
+--tessdata_dir ./tessdata --output_dir ~/tesstutorial/trainarrows
+```
 #### Problem: could not find font named ' ' 
 (https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!topic/tesseract-ocr/5vLEamZ43Kg Google group question I asked when have this problem)
 
