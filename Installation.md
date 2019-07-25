@@ -158,6 +158,7 @@ cd ~/tesstutorial
 git clone --depth 1 https://github.com/tesseract-ocr/tesseract.git
 
 cd tesseract/tessdata
+##### no need to mkdir best here, will cause problem later
 
 sudo wget https://github.com/tesseract-ocr/tessdata_best/raw/master/eng.traineddata
 
@@ -181,12 +182,19 @@ src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang eng --linedata_onl
 The above command created engeval and engtrain in tesstutorial folder
 
 mkdir -p ~/tesstutorial/engoutput
+
 lstmtraining --debug_interval 100 \
+
   --traineddata ~/tesstutorial/engtrain/eng/eng.traineddata \
+  
   --net_spec '[1,36,0,1 Ct3,3,16 Mp3,3 Lfys48 Lfx96 Lrx96 Lfx256 O1c111]' \
+  
   --model_output ~/tesstutorial/engoutput/base --learning_rate 20e-4 \
+  
   --train_listfile ~/tesstutorial/engtrain/eng.training_files.txt \
+  
   --eval_listfile ~/tesstutorial/engeval/eng.training_files.txt \
+  
   --max_iterations 5000 &>~/tesstutorial/engoutput/basetrain.log
 
 In a separate window monitor the log file:
@@ -196,18 +204,25 @@ tail -f ~/tesstutorial/engoutput/basetrain.log
 Test training result on ‘Impact’ font:
 
 lstmeval --model ~/tesstutorial/engoutput/base_checkpoint \
+
   --traineddata ~/tesstutorial/engtrain/eng/eng.traineddata \
+  
   --eval_listfile ~/tesstutorial/engeval/eng.training_files.txt
+  
 High error rate
 
 On 4500 or so fonts:
 
 lstmeval --model tessdata/best/eng.traineddata --traineddata ~/tesstutorial/engtrain/eng/eng.traineddata --eval_listfile ~/tesstutorial/engeval/eng.training_files.txt
+
 low error rate
 
 on full model:
 
---model tessdata/best/eng.traineddata --traineddata ~/tesstutorial/engtrain/eng/eng.traineddata --eval_listfile ~/tesstutorial/engtrain/eng.training_files.txt
+--model tessdata/best/eng.traineddata --traineddata ~/tesstutorial/engtrain/eng/eng.traineddata --eval_listfile
+
+~/tesstutorial/engtrain/eng.training_files.txt
+
 Lowest error rate
 
 ### Training Chinese
@@ -295,28 +310,39 @@ https://github.com/tesseract-ocr/langdata/blob/master/font_properties
 After installing necessary fonts, from tesstutorial/tesseract run
 
 src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata_only \
+
   --noextract_font_properties --langdata_dir ../langdata \
+  
   --tessdata_dir ./tessdata --output_dir ~/tesstutorial/trainarrows
   
 (this step creates training data, the training text created here is equivalent to the text used to train base tesseract not langdata_lstm)
 
 src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata_only \
+
   --noextract_font_properties --langdata_dir ../langdata \
+  
   --tessdata_dir ./tessdata \
+  
   --fontlist " AR PL UKai TW " --output_dir ~/tesstutorial/evalarrows
   
 (create evaluation data for the font in fontlist)
 
 combine_tessdata -e tessdata/best/chi_sim.traineddata \
+
   ~/tesstutorial/trainarrows2/chi_sim.lstm
   
 (created chi_sim.lstm file)
 
 lstmtraining --model_output ~/tesstutorial/trainarrows/arrows \
+
   --continue_from ~/tesstutorial/trainarrows/arrows_checkpoint\
+  
   --traineddata ~/tesstutorial/trainarrows/chi_sim/chi_sim.traineddata \
+  
   --old_traineddata tessdata/best/chi_sim.traineddata \
+  
   --train_listfile ~/tesstutorial/trainarrows/chi_sim.training_files.txt \
+  
   --max_iterations 3600
 
 combine_tessdata -d tesstutorial/tesseract/tessdata/best/chi_sim.traineddata
@@ -342,40 +368,58 @@ Version string:4.00.00alpha:chi_sim:synth20170629:[1,48,0,1Ct3,3,16Mp3,3Lfys64Lf
 23:version:size=84, offset=13077335
 
 lstmeval --model ~/tesstutorial/trainarrows/arrows_checkpoint \
+
   --traineddata ~/tesstutorial/trainarrows/chi_sim/chi_sim.traineddata \
+  
   --eval_listfile ~/tesstutorial/trainarrows/chi_sim.training_files.txt
 
 lstmeval --model ~/tesstutorial/trainarrows/arrows_checkpoint \
+
   --traineddata ~/tesstutorial/trainarrows/chi_sim/chi_sim.traineddata \
+  
   --eval_listfile ~/tesstutorial/evalarrows/chi_sim.training_files.txt 2>&1 |
   grep ↑
 
 lstmtraining --stop_training \
+
   --continue_from ~/tesstutorial/trainarrows/arrows_checkpoint \
+  
   --traineddata ~/tesstutorial/trainarrows/chi_sim/chi_sim.traineddata \
+  
   --model_output ~/tesstutorial/trainarrows/chi_sim.traineddata
 
 ### Adding ± to chi_sim
 
 grep ± langdata/chi_sim/chi_sim.training_text
-nano langdata/chi_sim/chi_sim.training_text
-inserted ± 
+
+nano langdata/chi_sim/chi_sim.training_text, then inserted ± 
 
 src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata_only \
+
   --noextract_font_properties --langdata_dir ../langdata \
+  
   --tessdata_dir ./tessdata --output_dir ~/tesstutorial/trainplusminuszh
 
 src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata_only \
+
   --noextract_font_properties --langdata_dir ../langdata \
+  
   --tessdata_dir ./tessdata \
+  
   --fontlist " AR PL UKai TW " --output_dir ~/tesstutorial/evalplusminuszh
 
 combine_tessdata -e tessdata/best/chi_sim.traineddata \
+
   ~/tesstutorial/trainplusminuszh/chi_sim.lstm
 
 lstmtraining --model_output ~/tesstutorial/trainplusminuszh/plusminuszh \
+
   --continue_from ~/tesstutorial/trainplusminuszh/chi_sim.lstm \
+  
   --traineddata ~/tesstutorial/trainplusminuszh/chi_sim/chi_sim.traineddata \
+  
   --old_traineddata tessdata/best/chi_sim.traineddata \
+  
   --train_listfile ~/tesstutorial/trainplusminuszh/chi_sim.training_files.txt \
+  
   --max_iterations 3600
