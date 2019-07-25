@@ -20,3 +20,6 @@ For an example of stoolTest report:
 http://askimg.39.net/topic/20150319/785494.jpg
 For psa report:
 http://wap.xcgwk.com/uploads/allimg/170419/1-1F419103348.jpg
+
+# Installation and training Tesseract
+see Installation_and_training.md
