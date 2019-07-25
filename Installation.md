@@ -46,7 +46,7 @@ sudo apt-get install libtiff5-dev
 sudo apt-get install zlib1g-dev
 ```
 
-for building training tools:
+build training tools:
 
 ```bash
 sudo apt-get install libicu-dev
@@ -78,7 +78,7 @@ git clone https://github.com/tesseract-ocr/tessdata.git // this will clone all t
 then move the necessary .traineddata(like chi_sim.traineddata) to /usr/local/share/tessdata
 
 #### Install ScrollView.jar 
-// for training purpose, to show tesseract segment result, didn't really use in the end, doesn't seem to work on a server, need display, can probably work with Xterm
+(for training purpose, to show tesseract segment result, didn't really use in the end, doesn't seem to work on a server, need display, can probably work with Xterm)
 
 Sudo apt-get install default-jdk to install javac
 
@@ -90,60 +90,39 @@ export SCROLLVIEW_PATH=$PWD/java
 
 #### Install necessary fonts for tesstraining: 
 (Will need to download extra fonts for training Chinese, see later)
-
+```bash
 sudo apt install ttf-mscorefonts-installer
-
 sudo apt install fonts-dejavu
-
+```
 fc-cache -vf // this is probably for checking fonts available
 
 
 ## Set up for tessturotial (training English): 
 Follow instructions in the following link: https://github.com/tesseract-ocr/tesseract/wiki/TrainingTesseract-4.00, If you run into some problems, refer to notes below 
-
+```bash
 mkdir ~/tesstutorial
-
 cd ~/tesstutorial
-
 mkdir langdata
-
 cd langdata
-
 sudo wget https://raw.githubusercontent.com/tesseract-ocr/langdata_lstm/master/radical-stroke.txt
-
 sudo wget https://raw.githubusercontent.com/tesseract-ocr/langdata_lstm/master/common.punc
-
 sudo wget https://raw.githubusercontent.com/tesseract-ocr/langdata_lstm/master/font_properties
-
 sudo wget https://raw.githubusercontent.com/tesseract-ocr/langdata/master/Latin.unicharset
-
 sudo wget https://raw.githubusercontent.com/tesseract-ocr/langdata/master/Latin.xheights
-
 mkdir eng
-
 cd eng
-
 sudo wget https://raw.githubusercontent.com/tesseract-ocr/langdata/master/eng/eng.training_text
-
 sudo wget https://raw.githubusercontent.com/tesseract-ocr/langdata/master/eng/eng.punc
-
 sudo wget https://raw.githubusercontent.com/tesseract-ocr/langdata/master/eng/eng.numbers
-
 sudo wget https://raw.githubusercontent.com/tesseract-ocr/langdata/master/eng/eng.wordlist
-
 cd ~/tesstutorial
-
 git clone --depth 1 https://github.com/tesseract-ocr/tesseract.git
-
 cd tesseract/tessdata
 ##### no need to mkdir best here, will cause problem later
-
 sudo wget https://github.com/tesseract-ocr/tessdata_best/raw/master/eng.traineddata
-
 sudo wget https://github.com/tesseract-ocr/tessdata_best/raw/master/heb.traineddata
-
 sudo wget https://github.com/tesseract-ocr/tessdata_best/raw/master/chi_sim.traineddata
-
+```
 ### Training from scratch
 
 - src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang eng --linedata_only \
