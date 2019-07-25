@@ -37,8 +37,7 @@ $ tesseract ~/tesseract/blood_test/test.jpeg ~/tesseract/blood_test/test -l chi_
 ## Installation
 ### Install Dependencies
 ```bash
-sudo apt-get install g++ # or clang++ (presumably) // I chose g++
-
+sudo apt-get install g++ // or clang++ (presumably), I chose g++
 sudo apt-get install autoconf automake libtool
 
 sudo apt-get install pkg-config
@@ -50,9 +49,11 @@ sudo apt-get install libjpeg8-dev
 sudo apt-get install libtiff5-dev
 
 sudo apt-get install zlib1g-dev
+```
 
 for building training tools:
 
+```bash
 sudo apt-get install libicu-dev
 
 sudo apt-get install libpango1.0-dev
