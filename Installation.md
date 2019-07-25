@@ -29,13 +29,14 @@ $ tesseract ~/tesseract/blood_test/test.jpeg ~/tesseract/blood_test/test -l chi_
 
 - '-c preserve_interword_spaces=1' is for changing tesseract default settings, the parameters that can be set can be viewed with 'tesseract --print-parameters' (there's a hundreds of them, useful ones are 'preserve_interword_spaces', 'tessedit_write_images'); 
 
-- --psm 6 is for setting the segmentation method, view it with 'tesseract --help-extra';
+- '--psm 6' is for setting the segmentation method, view it with 'tesseract --help-extra';
 
 - '-l chi_sim' is for setting language to chi_sim, the available languages can be viewd with 'tesseract --list-langs', too add available langs, download .traineddata file and put it in /usr/local/share/tessdata
 
 
 ## Installation
 ### Install Dependencies
+```bash
 sudo apt-get install g++ # or clang++ (presumably) // I chose g++
 
 sudo apt-get install autoconf automake libtool
@@ -59,7 +60,7 @@ sudo apt-get install libpango1.0-dev
 sudo apt-get install libcairo2-dev
 
 sudo apt-get install libleptonica-dev // Error: Unable to locate package libleptonica-dev
-
+```
 Installed Leptonica1.78.0 manually following http://www.leptonica.org/source/README.html#BUILDING
 
 ### Install Tesseract
