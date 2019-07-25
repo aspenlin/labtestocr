@@ -138,40 +138,41 @@ src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang eng --linedata_onl
 (If it runs into error, copy paste the code and run again)
 
 The above command created engeval and engtrain in tesstutorial folder
-
-- mkdir -p ~/tesstutorial/engoutput
-
-- lstmtraining --debug_interval 100 \
-  --traineddata ~/tesstutorial/engtrain/eng/eng.traineddata \
-  --net_spec '[1,36,0,1 Ct3,3,16 Mp3,3 Lfys48 Lfx96 Lrx96 Lfx256 O1c111]' \
-  --model_output ~/tesstutorial/engoutput/base --learning_rate 20e-4 \
-  --train_listfile ~/tesstutorial/engtrain/eng.training_files.txt \
-  --eval_listfile ~/tesstutorial/engeval/eng.training_files.txt \
-  --max_iterations 5000 &>~/tesstutorial/engoutput/basetrain.log
-
-- In a separate window monitor the log file:
-
+```bash
+mkdir -p ~/tesstutorial/engoutput
+```
+```bash
+lstmtraining --debug_interval 100 \
+--traineddata ~/tesstutorial/engtrain/eng/eng.traineddata \
+--net_spec '[1,36,0,1 Ct3,3,16 Mp3,3 Lfys48 Lfx96 Lrx96 Lfx256 O1c111]' \
+--model_output ~/tesstutorial/engoutput/base --learning_rate 20e-4 \
+--train_listfile ~/tesstutorial/engtrain/eng.training_files.txt \
+--eval_listfile ~/tesstutorial/engeval/eng.training_files.txt \
+--max_iterations 5000 &>~/tesstutorial/engoutput/basetrain.log
+```
+In a separate window monitor the log file:
+```bash
 tail -f ~/tesstutorial/engoutput/basetrain.log
-
-- Test training result on ‘Impact’ font:
-
-  lstmeval --model ~/tesstutorial/engoutput/base_checkpoint \
-  --traineddata ~/tesstutorial/engtrain/eng/eng.traineddata \
-  --eval_listfile ~/tesstutorial/engeval/eng.training_files.txt
-  
+```
+Test training result on ‘Impact’ font:
+```bash
+lstmeval --model ~/tesstutorial/engoutput/base_checkpoint \
+--traineddata ~/tesstutorial/engtrain/eng/eng.traineddata \
+--eval_listfile ~/tesstutorial/engeval/eng.training_files.txt
+```  
 High error rate
 
-- On 4500 or so fonts:
-
+On 4500 or so fonts:
+```bash
 lstmeval --model tessdata/best/eng.traineddata --traineddata ~/tesstutorial/engtrain/eng/eng.traineddata --eval_listfile ~/tesstutorial/engeval/eng.training_files.txt
-
+```
 low error rate
 
-- on full model:
-
+on full model:
+```bash
 lstmeval --model tessdata/best/eng.traineddata --traineddata ~/tesstutorial/engtrain/eng/eng.traineddata --eval_listfile
 ~/tesstutorial/engtrain/eng.training_files.txt
-
+```
 Lowest error rate
 
 ### Training Chinese
