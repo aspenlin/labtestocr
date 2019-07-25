@@ -22,4 +22,4 @@ For psa report:
 http://wap.xcgwk.com/uploads/allimg/170419/1-1F419103348.jpg
 
 # Installation and training Tesseract
-see [Installation_and_training.md]
+see [Installation_and_training.md](Installation_and_training.md)
