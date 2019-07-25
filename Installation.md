@@ -168,11 +168,11 @@ sudo wget https://github.com/tesseract-ocr/tessdata_best/raw/master/chi_sim.trai
 
 ### Training from scratch
 
-src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang eng --linedata_only \
+- src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang eng --linedata_only \
   --noextract_font_properties --langdata_dir ../langdata \
   --tessdata_dir ./tessdata --output_dir ~/tesstutorial/engtrain
 
-src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang eng --linedata_only \
+- src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang eng --linedata_only \
   --noextract_font_properties --langdata_dir ../langdata \
   --tessdata_dir ./tessdata \
   --fontlist "Impact Condensed" --output_dir ~/tesstutorial/engeval
@@ -181,9 +181,9 @@ src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang eng --linedata_onl
 
 The above command created engeval and engtrain in tesstutorial folder
 
-mkdir -p ~/tesstutorial/engoutput
+- mkdir -p ~/tesstutorial/engoutput
 
-lstmtraining --debug_interval 100 \
+- lstmtraining --debug_interval 100 \
 
   --traineddata ~/tesstutorial/engtrain/eng/eng.traineddata \
   
@@ -199,11 +199,11 @@ lstmtraining --debug_interval 100 \
 
 In a separate window monitor the log file:
 
-tail -f ~/tesstutorial/engoutput/basetrain.log
+- tail -f ~/tesstutorial/engoutput/basetrain.log
 
 Test training result on ‘Impact’ font:
 
-lstmeval --model ~/tesstutorial/engoutput/base_checkpoint \
+- lstmeval --model ~/tesstutorial/engoutput/base_checkpoint \
 
   --traineddata ~/tesstutorial/engtrain/eng/eng.traineddata \
   
@@ -213,13 +213,13 @@ High error rate
 
 On 4500 or so fonts:
 
-lstmeval --model tessdata/best/eng.traineddata --traineddata ~/tesstutorial/engtrain/eng/eng.traineddata --eval_listfile ~/tesstutorial/engeval/eng.training_files.txt
+- lstmeval --model tessdata/best/eng.traineddata --traineddata ~/tesstutorial/engtrain/eng/eng.traineddata --eval_listfile ~/tesstutorial/engeval/eng.training_files.txt
 
 low error rate
 
 on full model:
 
---model tessdata/best/eng.traineddata --traineddata ~/tesstutorial/engtrain/eng/eng.traineddata --eval_listfile
+- lstmeval --model tessdata/best/eng.traineddata --traineddata ~/tesstutorial/engtrain/eng/eng.traineddata --eval_listfile
 
 ~/tesstutorial/engtrain/eng.training_files.txt
 
@@ -259,7 +259,7 @@ use nano to insert new chars (↓) to chi_sim.training_text
 
 from tesstutorial/tesseract run
 
-src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata_only \
+- src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata_only \
 
   --noextract_font_properties --langdata_dir ../langdata \
   
@@ -268,9 +268,9 @@ src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata
 #### Problem: could not find font named ' ' 
 (https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!topic/tesseract-ocr/5vLEamZ43Kg Google group question I asked when have this problem)
 
-text2image --find_fonts --text ./langdata/chi_sim/chi_sim.training_text --outputbase ./langdata/chi_sim/  --min_coverage 0.999  --fonts_dir=/usr/share/fonts/
+- text2image --find_fonts --text ./langdata/chi_sim/chi_sim.training_text --outputbase ./langdata/chi_sim/  --min_coverage 0.999  --fonts_dir=/usr/share/fonts/
 
-how to install fonts?
+- how to install fonts?
 
 Sudo apt-get install *** (need to find from the web)
 
@@ -300,7 +300,7 @@ Some fonts cannot be found and installed from internet, install and add the foll
    
    "Arial Unicode MS Regular" \
    
-Useful links about how to slove this problem:
+- Useful links about how to slove this problem:
 
 https://github.com/tesseract-ocr/tesseract/wiki/Fonts
 
@@ -311,7 +311,7 @@ https://github.com/tesseract-ocr/langdata/blob/master/font_properties
 ### Continue after solve the font problem
 After installing necessary fonts, from tesstutorial/tesseract run
 
-src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata_only \
+- src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata_only \
 
   --noextract_font_properties --langdata_dir ../langdata \
   
@@ -319,7 +319,7 @@ src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata
   
 (this step creates training data, the training text created here is equivalent to the text used to train base tesseract not langdata_lstm)
 
-src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata_only \
+- src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata_only \
 
   --noextract_font_properties --langdata_dir ../langdata \
   
@@ -329,13 +329,13 @@ src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata
   
 (create evaluation data for the font in fontlist)
 
-combine_tessdata -e tessdata/best/chi_sim.traineddata \
+- combine_tessdata -e tessdata/best/chi_sim.traineddata \
 
   ~/tesstutorial/trainarrows2/chi_sim.lstm
   
 (created chi_sim.lstm file)
 
-lstmtraining --model_output ~/tesstutorial/trainarrows/arrows \
+- lstmtraining --model_output ~/tesstutorial/trainarrows/arrows \
 
   --continue_from ~/tesstutorial/trainarrows/arrows_checkpoint\
   
@@ -347,7 +347,7 @@ lstmtraining --model_output ~/tesstutorial/trainarrows/arrows \
   
   --max_iterations 3600
 
-combine_tessdata -d tesstutorial/tesseract/tessdata/best/chi_sim.traineddata
+- combine_tessdata -d tesstutorial/tesseract/tessdata/best/chi_sim.traineddata
 
 result:
 
@@ -369,20 +369,20 @@ Version string:4.00.00alpha:chi_sim:synth20170629:[1,48,0,1Ct3,3,16Mp3,3Lfys64Lf
 
 23:version:size=84, offset=13077335
 
-lstmeval --model ~/tesstutorial/trainarrows/arrows_checkpoint \
+- lstmeval --model ~/tesstutorial/trainarrows/arrows_checkpoint \
 
   --traineddata ~/tesstutorial/trainarrows/chi_sim/chi_sim.traineddata \
   
   --eval_listfile ~/tesstutorial/trainarrows/chi_sim.training_files.txt
 
-lstmeval --model ~/tesstutorial/trainarrows/arrows_checkpoint \
+- lstmeval --model ~/tesstutorial/trainarrows/arrows_checkpoint \
 
   --traineddata ~/tesstutorial/trainarrows/chi_sim/chi_sim.traineddata \
   
   --eval_listfile ~/tesstutorial/evalarrows/chi_sim.training_files.txt 2>&1 |
   grep ↑
 
-lstmtraining --stop_training \
+- lstmtraining --stop_training \
 
   --continue_from ~/tesstutorial/trainarrows/arrows_checkpoint \
   
@@ -410,12 +410,12 @@ lstmtraining --stop_training \
   
   --fontlist " AR PL UKai TW " --output_dir ~/tesstutorial/evalplusminuszh
 
-combine_tessdata -e tessdata/best/chi_sim.traineddata \
+- combine_tessdata -e tessdata/best/chi_sim.traineddata \
 
   ~/tesstutorial/trainplusminuszh/chi_sim.lstm
   
 
-lstmtraining --model_output ~/tesstutorial/trainplusminuszh/plusminuszh \
+- lstmtraining --model_output ~/tesstutorial/trainplusminuszh/plusminuszh \
 
   --continue_from ~/tesstutorial/trainplusminuszh/chi_sim.lstm \
   
