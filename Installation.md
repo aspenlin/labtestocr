@@ -1,13 +1,19 @@
 # Info
-Commands for buliding tesseract and tesstrain tools from source for Ubuntu 16.04 on AWS, Jingjing LIN, 2019-07
+Commands for buliding tesseract, tesstrain tools from source, and further training tesseract at Ubuntu 16.04 on AWS, Jingjing LIN, 2019-07
 
 ## Useful links
 https://github.com/tesseract-ocr //contains everything about tesseract (different langdata, tessdata etc.)
+
 https://github.com/tesseract-ocr/tesseract //the source for tesseract, has information about how to use or install tesseract etc.
+
 https://github.com/tesseract-ocr/tesseract/wiki/Compiling //build tesseract from source, as of 2017-06, only tesseract built from source support whitelist, otherwise whitelist is not supported
+
 https://github.com/tesseract-ocr/tesseract/wiki/ImproveQuality //about how to improve image quality for better tesseract result, imagemagick is a very powerful image processing engine, python also provides several very good image processing packages, like opencv-python, Pillow. The main things to do are resizing, contrast enhancement, and image dewarp.
+
 https://github.com/tesseract-ocr/tesseract/wiki/TrainingTesseract-4.00 //about how to train tesseract to better fit to your purpose
+
 https://github.com/tesseract-ocr/tesseract/wiki/AddOns //AddOns for tesseract, has different wrapper for different languages
+
 https://groups.google.com/forum/#!forum/tesseract-ocr //Google group where you can ask questions when having problem, usually there will be people reply to you within one day
 
 ## Running instructions
