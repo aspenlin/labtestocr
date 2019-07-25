@@ -212,7 +212,7 @@ Lowest error rate
 
 ### Training Chinese
 
-There are a lot of things that need to be tuned for the training for a very good result fitted to your purpose, for example, the training text used (number of necessary characters added), the fonts used for training, the iterations etc.. chi_sim is harder than Latin, you probably need to retrain a few layers instead of fine tuning just a few characters. By doing the following I can successfully recognize arrows, but to get a very good OCR result this is far from enough.
+##### There are a lot of things that need to be tuned for the training for a very good result fitted to your purpose, for example, the training text used (number of necessary characters added), the fonts used for training, the iterations etc.. chi_sim is harder than Latin, you probably need to retrain a few layers instead of fine tuning just a few characters. By doing the following I can successfully recognize arrows, but to get a very good OCR result this is far from enough.
 
 The question I asked when having problem training might be helpful to you:
 
