@@ -198,7 +198,7 @@ wget https://raw.githubusercontent.com/tesseract-ocr/langdata/master/chi_sim/chi
 (attention: files in langdata_lstm are much larger than files in langdata, will result in failure when training because the .training_text file is too large)
 
 ```bash
-grep ↓ langdata/chi_sim/chi_sim.training_text // nothing will show up
+grep ↓ langdata/chi_sim/chi_sim.training_text ## nothing will show up
 ```
 use nano to insert new chars (↓) to chi_sim.training_text
 
@@ -210,9 +210,9 @@ src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata
 ```
 #### Problem: could not find font named ' ' 
 (https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!topic/tesseract-ocr/5vLEamZ43Kg Google group question I asked when have this problem)
-
-- text2image --find_fonts --text ./langdata/chi_sim/chi_sim.training_text --outputbase ./langdata/chi_sim/  --min_coverage 0.999  --fonts_dir=/usr/share/fonts/
-
+```bash
+text2image --find_fonts --text ./langdata/chi_sim/chi_sim.training_text --outputbase ./langdata/chi_sim/  --min_coverage 0.999  --fonts_dir=/usr/share/fonts/
+```
 - how to install fonts?
 
 Sudo apt-get install *** (need to find from the web)
@@ -243,7 +243,7 @@ Some fonts cannot be found and installed from internet, install and add the foll
    
    "Arial Unicode MS Regular" \
    
-- Useful links about how to slove this problem:
+Useful links about how to slove this problem:
 
 https://github.com/tesseract-ocr/tesseract/wiki/Fonts
 
@@ -253,68 +253,64 @@ https://github.com/tesseract-ocr/langdata/blob/master/font_properties
 
 ### Continue after solve the font problem
 After installing necessary fonts, from tesstutorial/tesseract run
-
-- src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata_only \
-  --noextract_font_properties --langdata_dir ../langdata \
-  --tessdata_dir ./tessdata --output_dir ~/tesstutorial/trainarrows
-  
+```bash
+src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata_only \
+--noextract_font_properties --langdata_dir ../langdata \
+--tessdata_dir ./tessdata --output_dir ~/tesstutorial/trainarrows
+```  
 (this step creates training data, the training text created here is equivalent to the text used to train base tesseract not langdata_lstm)
-
-- src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata_only \
-  --noextract_font_properties --langdata_dir ../langdata \
-  --tessdata_dir ./tessdata \
-  --fontlist " AR PL UKai TW " --output_dir ~/tesstutorial/evalarrows
-  
+```bash
+src/training/tesstrain.sh --fonts_dir /usr/share/fonts --lang chi_sim --linedata_only \
+--noextract_font_properties --langdata_dir ../langdata \
+--tessdata_dir ./tessdata \
+--fontlist " AR PL UKai TW " --output_dir ~/tesstutorial/evalarrows
+```  
 (create evaluation data for the font in fontlist)
-
-- combine_tessdata -e tessdata/best/chi_sim.traineddata \
-  ~/tesstutorial/trainarrows2/chi_sim.lstm
-  
+```bash
+combine_tessdata -e tessdata/best/chi_sim.traineddata \
+~/tesstutorial/trainarrows2/chi_sim.lstm
+``` 
 (created chi_sim.lstm file)
-
-- lstmtraining --model_output ~/tesstutorial/trainarrows/arrows \
-  --continue_from ~/tesstutorial/trainarrows/arrows_checkpoint\
-  --traineddata ~/tesstutorial/trainarrows/chi_sim/chi_sim.traineddata \
-  --old_traineddata tessdata/best/chi_sim.traineddata \
-  --train_listfile ~/tesstutorial/trainarrows/chi_sim.training_files.txt \
-  --max_iterations 3600
-
-- combine_tessdata -d tesstutorial/tesseract/tessdata/best/chi_sim.traineddata
-
-result:
-
+```bash
+lstmtraining --model_output ~/tesstutorial/trainarrows/arrows \
+--continue_from ~/tesstutorial/trainarrows/arrows_checkpoint\
+--traineddata ~/tesstutorial/trainarrows/chi_sim/chi_sim.traineddata \
+--old_traineddata tessdata/best/chi_sim.traineddata \
+--train_listfile ~/tesstutorial/trainarrows/chi_sim.training_files.txt \
+--max_iterations 3600
+```
+```bash
+combine_tessdata -d tesstutorial/tesseract/tessdata/best/chi_sim.traineddata
+```
+output:
+```bash
 Version string:4.00.00alpha:chi_sim:synth20170629:[1,48,0,1Ct3,3,16Mp3,3Lfys64Lfx96Lrx96Lfx512O1c1]
-
 0:config:size=1966, offset=192
-
 17:lstm:size=12152851, offset=2158
-
 18:lstm-punc-dawg:size=282, offset=12155009
-
 19:lstm-word-dawg:size=590634, offset=12155291
-
 20:lstm-number-dawg:size=82, offset=12745925
-
 21:lstm-unicharset:size=258834, offset=12746007
-
 22:lstm-recoder:size=72494, offset=13004841
-
 23:version:size=84, offset=13077335
-
-- lstmeval --model ~/tesstutorial/trainarrows/arrows_checkpoint \
-  --traineddata ~/tesstutorial/trainarrows/chi_sim/chi_sim.traineddata \
-  --eval_listfile ~/tesstutorial/trainarrows/chi_sim.training_files.txt
-
-- lstmeval --model ~/tesstutorial/trainarrows/arrows_checkpoint \
-  --traineddata ~/tesstutorial/trainarrows/chi_sim/chi_sim.traineddata \
-  --eval_listfile ~/tesstutorial/evalarrows/chi_sim.training_files.txt 2>&1 |
-  grep ↑
-
-- lstmtraining --stop_training \
-  --continue_from ~/tesstutorial/trainarrows/arrows_checkpoint \
-  --traineddata ~/tesstutorial/trainarrows/chi_sim/chi_sim.traineddata \
-  --model_output ~/tesstutorial/trainarrows/chi_sim.traineddata
-
+```
+```bash
+lstmeval --model ~/tesstutorial/trainarrows/arrows_checkpoint \
+--traineddata ~/tesstutorial/trainarrows/chi_sim/chi_sim.traineddata \
+--eval_listfile ~/tesstutorial/trainarrows/chi_sim.training_files.txt
+```
+```bash
+lstmeval --model ~/tesstutorial/trainarrows/arrows_checkpoint \
+--traineddata ~/tesstutorial/trainarrows/chi_sim/chi_sim.traineddata \
+--eval_listfile ~/tesstutorial/evalarrows/chi_sim.training_files.txt 2>&1 |
+grep ↑
+```
+```bash
+lstmtraining --stop_training \
+--continue_from ~/tesstutorial/trainarrows/arrows_checkpoint \
+--traineddata ~/tesstutorial/trainarrows/chi_sim/chi_sim.traineddata \
+--model_output ~/tesstutorial/trainarrows/chi_sim.traineddata
+```
 ### Adding ± to chi_sim
 
 - grep ± langdata/chi_sim/chi_sim.training_text
