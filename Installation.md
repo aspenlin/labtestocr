@@ -17,7 +17,7 @@ https://github.com/tesseract-ocr/tesseract/wiki/AddOns // AddOns for tesseract, 
 https://groups.google.com/forum/#!forum/tesseract-ocr // Google group where you can ask questions when having problem, usually there will be people reply to you within one day
 
 ## Running instructions
-- running tesseract from terminal: tesseract imagepath outputfilepath(without file extension) -l chi_sim --psm 6 configs
+- running tesseract from terminal: $ tesseract imagepath outputfilepath(without file extension) -l chi_sim --psm 6 configs
  
 Example:
 
