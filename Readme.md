@@ -16,14 +16,14 @@ $ pip3 install virtualenv ## install the tool for creating a virtual environment
 $ virtualenv venv  ## create the virtual environment
 $ source venv/bin/activate  ## activate the virtual environment
 (venv) $ cd venv
-(venv) :/venv$ git clone https://jingjinglin@bitbucket.org/shufu/tesseract.git
-(venv) :/venv$ cd tesseract
-(venv) :/venv/tesseract$ pip3 install -r requirements.txt
+(venv) :~/venv$ git clone https://jingjinglin@bitbucket.org/shufu/tesseract.git
+(venv) :~/venv$ cd tesseract
+(venv) :~/venv/tesseract$ pip3 install -r requirements.txt
 ```
 
 To set up swagger interface for Labtest_OCR, run 
 ```bash
-(venv) :/venv/tesseract/flakocr$ pm2 start 'python3 labtestocr_swagger.py' ## from folder flaskocr
+(venv) :~/venv/tesseract/flakocr$ pm2 start 'python3 labtestocr_swagger.py' ## from folder flaskocr
 ```
 
 The resulting swagger interface can be view from: http://yourip:5000/
