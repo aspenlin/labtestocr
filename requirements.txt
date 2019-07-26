@@ -1,0 +1,8 @@
+flask==1.1.0
+flask_restplus==0.12.1
+requests
+opencv-python
+Wand
+tesserocr==2.4.0
+fuzzywuzzy==4.1.0
+python-Levenshtein
