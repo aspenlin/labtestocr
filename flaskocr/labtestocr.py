@@ -275,7 +275,7 @@ class stoolTest:
 
 
 
-class urineTest(stooltest):
+class urineTest(stoolTest):
 
     def whitelist(self):
         return '<=?+().^~\
@@ -340,7 +340,7 @@ class urineTest(stooltest):
         return urine_dict
 
 
-class bloodTest(stooltest):
+class bloodTest(stoolTest):
 # '肺炎支原体IgM' gives '阴阳性' not numbers, other tests give number as results
     def regex_rule(self, name):
         exceptions = self.test_items_dict['mycoplasmaPneumoniaeIgM'] + self.test_items_dict['cReactiveProtein']
@@ -402,7 +402,7 @@ class bloodTest(stooltest):
         return blood_dict
 
 
-class psa(stooltest):
+class psa(stoolTest):
     
     def regex_rule(self, name):
         return ''.join([name, '(\D*)(\d+\.\d{0,3})'])
