@@ -1,5 +1,5 @@
 # Info
-Commands for buliding tesseract, tesstrain tools from source, and further training tesseract at Ubuntu 16.04 on AWS, Jingjing LIN, 2019-07
+Commands for buliding tesseract, tesstrain tools from source, and further training tesseract at Ubuntu 16.04 on AWS.
 
 ## Useful links
 https://github.com/tesseract-ocr // has everything about tesseract (different langdata, tessdata etc.)
@@ -341,3 +341,4 @@ lstmtraining --model_output ~/tesstutorial/trainplusminuszh/plusminuszh \
 --train_listfile ~/tesstutorial/trainplusminuszh/chi_sim.training_files.txt \
 --max_iterations 3600
 ```
+#### Jingjing LIN, 2019-07
