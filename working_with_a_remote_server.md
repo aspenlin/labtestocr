@@ -21,3 +21,6 @@ Transfer files between local and remote server, at local:
 ```bash
 $ scp -i shufu.pem filename ubuntu@ml.siuvo.com:~ ## to transfer a folder use -r
 ```
+For showing graphical result at the remote, use xterm. With macOS as local use xquartz.
+
+##### Jingjing LIN, 2019-07

@@ -54,4 +54,4 @@ http://wap.xcgwk.com/uploads/allimg/170419/1-1F419103348.jpg
 # Installing and training Tesseract
 see [Installation_and_training.md](Installation_and_training.md)
 
-#### Jingjing LIN, 2019-07
+##### Jingjing LIN, 2019-07

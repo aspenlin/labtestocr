@@ -341,4 +341,4 @@ lstmtraining --model_output ~/tesstutorial/trainplusminuszh/plusminuszh \
 --train_listfile ~/tesstutorial/trainplusminuszh/chi_sim.training_files.txt \
 --max_iterations 3600
 ```
-#### Jingjing LIN, 2019-07
+##### Jingjing LIN, 2019-07
