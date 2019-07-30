@@ -1,5 +1,7 @@
 # Info
-This project is for extracting lab test results from a lab test report, the lab test that can be processed for now are bloodTest, stoolTest, urineTest and psa. It gives the values for each test item as well as the confidence level. The main techniques involved are Tesseract OCR and regular expression. Accuracy can be improved through image processing. Here I only used resizing. For images of these tests, see images in *_test folders. Other lab tests can also be processed by adding necessary classes to home/ubuntu/tesseract/flaskocr/labtestocr.py. 
+This project is for extracting lab test results from a lab test report. It gives the values for each test item as well as the confidence level. The lab test that can be processed for now are bloodTest, stoolTest, urineTest and psa. For images of these tests, see images in *_test folders.  Other lab tests can also be processed by adding necessary classes to /home/ubuntu/tesseract/flaskocr/labtestocr.py. 
+
+The main techniques involved are Tesseract OCR (for recognizing text in an image) and regular expression (for extracting values for a specific test item). Accuracy can be improved through image processing. Here I only used resizing. 
 
 The project is currently located at the home directory at our AWS server ml.siuvo.com.
 
