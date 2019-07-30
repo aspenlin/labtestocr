@@ -1,9 +1,9 @@
 # Info
-This project is for extracting lab test results from a lab test report. It gives the values for each test item as well as the confidence level. The lab test that can be processed for now are bloodTest, stoolTest, urineTest and psa. For images of these tests, see images in *_test folders.  Other lab tests can also be processed by adding necessary classes to /home/ubuntu/tesseract/flaskocr/labtestocr.py. 
+This project is for extracting lab test values from a lab test report. It gives the values for each test item as well as the confidence level. The lab test that can be processed for now are bloodTest, stoolTest, urineTest and psa. For images of these tests, see images in *_test folders.  Other lab tests can also be processed by adding necessary classes to /home/ubuntu/tesseract/flaskocr/labtestocr.py. 
 
 The main techniques involved are Tesseract OCR (for recognizing text in an image) and regular expression (for extracting values for a specific test item). Accuracy can be improved through image processing. Here I only used resizing. 
 
-The project is currently located at the home directory at our AWS server ml.siuvo.com.
+The project is currently located at our AWS server ml.siuvo.com.
 
 ## Folder information
 Folder flaskocr contains the main python program labtestocr.py, where the classes bloodTest, urineTest, stoolTest, psa are. Swagger interface set up programs are also here.
@@ -15,6 +15,9 @@ Page_dewarp-master/Image-Contrast-Enhancement/photo-enhancer are cloned from Git
 Medicine_instructions contains tesseract results for some medicine instruction images.
 
 ## Installing and Running instruction
+First you need to install Tesseract engine follow the instructions in [Installation_and_training.md](Installation_and_training.md).
+
+Then setup python programs
 ```
 $ pip3 install virtualenv ## install the package for creating a virtual environment for python
 $ virtualenv venv  ## create the virtual environment
@@ -30,7 +33,7 @@ To set up swagger interface for Labtest_OCR, run
 (venv) :~/venv/tesseract/flakocr$ pm2 start 'python3 labtestocr_swagger.py' ## from folder flaskocr
 ```
 
-The resulting swagger interface can be view from: http://ml.siuvo.com:5000/
+The resulting swagger interface can be view from http://localhost:5000/. In my case http://ml.siuvo.com:5000/.
 
 For an example of bloodTest report to test in swagger:
 
