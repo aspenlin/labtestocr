@@ -1,7 +1,9 @@
 # Info
 This project is for extracting lab test values from a lab test report. It gives the values for each test item as well as the confidence level. The lab test that can be processed for now are bloodTest, stoolTest, urineTest and psa. For images of these tests, see images in *_test folders.  Other lab tests can also be processed by adding necessary classes to /home/ubuntu/tesseract/flaskocr/labtestocr.py. 
 
-The main techniques involved are Tesseract OCR (for recognizing text in an image) and regular expression (for extracting values for a specific test item). For image pre-processing, a useful website is https://www.imgonline.com.ua/eng/improve-scanned-text.php  It improves image quality and thus OCR result for some images but not all.
+The main techniques involved are Tesseract OCR (for recognizing text in an image) and regular expression (for extracting values for a specific test item). 
+
+For image pre-processing, a useful website is https://www.imgonline.com.ua/eng/improve-scanned-text.php  It improves image quality and thus OCR results for some images, but not all.
 
 The project is currently located at our AWS server ml.siuvo.com.
 
