@@ -14,7 +14,7 @@ class stoolTest:
     # these will be initialized when the class is called
     def __init__(self, imgpath, width_pixel=2000):
         self.imgpath = imgpath
-        self.width_pixel = width_pixel
+        self.width_pixel = width_pixel # for resizing purpose, if image width less than this, resize to this value
         self.test_items_dict = self.test_items_dict()
         self.result_dict = self.result_dict()
         self.whitelist = self.whitelist()
@@ -37,7 +37,8 @@ class stoolTest:
 
     # one test item can have different names from different hospitals
     # this dict is for including all the different names
-    # can be refined for better results    
+    # can be refined for better results 
+    # the keys can be modified to use different names for tests, will not affect the result
     def test_items_dict(self):
         stool_dict = {}
         stool_dict['颜色'] = ['颜色','外观','颜色形态','颜色\s*\(\s*Colour\s*\)']
@@ -77,7 +78,8 @@ class stoolTest:
         img = cv2.imread(self.imgpath, 0)
         height, width = img.shape[0], img.shape[1]
         scale = self.width_pixel/width
-        img = cv2.resize(img, (0,0), fx=scale, fy=scale)
+        if scale > 1:
+            img = cv2.resize(img, (0,0), fx=scale, fy=scale)
         # contrast
 #         clahe = cv2.createCLAHE(clipLimit=0.5, tileGridSize=(8,8))
 #         img = clahe.apply(img)
@@ -177,6 +179,7 @@ class stoolTest:
                         conf = self.conf_score(match_copy, value[0][1])
                         self.result_dict[k].append(conf*fuzzy[1]/100)
                         
+    # the main method
     def result(self):
         # save the OCR text for debug purpose
         self.save_text()
@@ -202,6 +205,7 @@ class stoolTest:
         # with test_name/value/confidences as keys and their values as values
         return result_list
     
+    # helper functions
     # get text without space and confidence level of each char
     def get_characters_and_confidences(self, api):
         api.Recognize()
