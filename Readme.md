@@ -56,4 +56,22 @@ http://wap.xcgwk.com/uploads/allimg/170419/1-1F419103348.jpg
 # Installing and training Tesseract
 see [Installation_and_training.md](Installation_and_training.md)
 
+## Running tesseract from command line
+
+$ tesseract imagepath outputfilepath(without file extension) -l chi_sim --psm 6 configs
+ 
+Example:
+
+```bash
+$ tesseract ~/tesseract/blood_test/test.jpeg ~/tesseract/blood_test/test -l chi_sim --psm 6 -c preserve_interword_spaces=1 whitelist_blood.txt
+```
+
+- 'whitelist_blood.txt' should be in folder /usr/local/share/tessdata/configs, can also replace it with other configs in the folder, like 'box', 'tsv', 'pdf' to get box/tsv/pdf output from tesseract; 
+
+- '-c preserve_interword_spaces=1' is for changing tesseract default settings, the parameters that can be set can be viewed with 'tesseract --print-parameters' (there's a hundreds of them, useful ones are 'preserve_interword_spaces', 'tessedit_write_images'); 
+
+- '--psm 6' is for setting the segmentation method, view it with 'tesseract --help-extra';
+
+- '-l chi_sim' is for setting language to chi_sim, the available languages can be viewd with 'tesseract --list-langs', too add available langs, download .traineddata file and put it in /usr/local/share/tessdata
+
 ##### Jingjing LIN, 2019-07
