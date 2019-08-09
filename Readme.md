@@ -63,7 +63,7 @@ $ tesseract imagepath outputfilepath(without file extension) -l chi_sim --psm 6 
 Example:
 
 ```bash
-$ tesseract ~/tesseract/blood_test/test.jpeg ~/tesseract/blood_test/test -l chi_sim --psm 6 -c preserve_interword_spaces=1 whitelist_blood.txt
+$ labtestocr ~/labtestocr/blood_test/test.jpeg ~/labtestocr/blood_test/test -l chi_sim --psm 6 -c preserve_interword_spaces=1 whitelist_blood.txt
 ```
 
 - 'whitelist_blood.txt' should be in folder /usr/local/share/tessdata/configs, can also replace it with other configs in the folder, like 'box', 'tsv', 'pdf' to get box/tsv/pdf output from tesseract; 
