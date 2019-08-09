@@ -1,5 +1,5 @@
 # Info
-This project is for extracting lab test values from a lab test report. It gives the values for each test item as well as the confidence level. The lab test that can be processed for now are bloodTest, stoolTest, urineTest and psa. For images of these tests, see images in *_test folders.  Other lab tests can also be processed by adding necessary classes to /home/ubuntu/tesseract/flaskocr/labtestocr.py. 
+This project is for extracting lab test values from a lab test report. It gives the values for each test item as well as the confidence level. The lab test that can be processed for now are bloodTest, stoolTest, urineTest and psa. For images of these tests, see images in *_test folders.  Other lab tests can also be processed by adding necessary classes to /home/ubuntu/labtestocr/flaskocr/labtestocr.py. 
 
 The main techniques involved are Tesseract OCR (for recognizing text in an image) and regular expression (for extracting values for a specific test item). 
 
@@ -25,9 +25,9 @@ $ pip3 install virtualenv ## install the package for creating a virtual environm
 $ virtualenv venv  ## create the virtual environment
 $ source venv/bin/activate  ## activate the virtual environment
 (venv) $ cd venv
-(venv) :~/venv$ git clone https://jingjinglin@bitbucket.org/shufu/tesseract.git
-(venv) :~/venv$ cd tesseract
-(venv) :~/venv/tesseract$ pip3 install -r requirements.txt
+(venv) :~/venv$ git clone https://<username>@bitbucket.org/shufu/labtestocr.git
+(venv) :~/venv$ cd labtestocr
+(venv) :~/venv/labtestocr$ pip3 install -r requirements.txt
 ```
 
 To set up swagger interface for Labtest_OCR, run 
