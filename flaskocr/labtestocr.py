@@ -9,6 +9,8 @@ from tesserocr import PyTessBaseAPI
 from wand.image import Image
 from fuzzywuzzy import fuzz, process
 import cv2
+from image_processor import ImageProcessor
+
 
 class stoolTest:
     # these will be initialized when the class is called
@@ -72,29 +74,29 @@ class stoolTest:
         [result.setdefault(test, []) for test in tests]
         return result
     
-    # preprocess the image, resize and save
-    # main problem of an image: small size, low contrast, wavy
-    def image_process(self):
-        img = cv2.imread(self.imgpath, 0)
-        height, width = img.shape[0], img.shape[1]
-        scale = self.width_pixel/width
-        if scale > 1:
-            img = cv2.resize(img, (0,0), fx=scale, fy=scale)
-        # contrast
-#         clahe = cv2.createCLAHE(clipLimit=0.5, tileGridSize=(8,8))
-#         img = clahe.apply(img)
-#         img = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY,11,5)
+#     # preprocess the image, resize and save
+#     # main problem of an image: small size, low contrast, wavy
+#     def image_process(self):
+#         img = cv2.imread(self.imgpath, 0)
+#         height, width = img.shape[0], img.shape[1]
+#         scale = self.width_pixel/width
+#         if scale > 1:
+#             img = cv2.resize(img, (0,0), fx=scale, fy=scale)
+#         # contrast
+# #         clahe = cv2.createCLAHE(clipLimit=0.5, tileGridSize=(8,8))
+# #         img = clahe.apply(img)
+# #         img = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY,11,5)
         
-        # Otsu's thresholding after Gaussian filtering
-#         img = cv2.GaussianBlur(img,(5,5),0)
-#         _, img = cv2.threshold(img,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+#         # Otsu's thresholding after Gaussian filtering
+# #         img = cv2.GaussianBlur(img,(5,5),0)
+# #         _, img = cv2.threshold(img,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
         
-        if self.imgpath[-4] == '.':
-            self.imgpath = ''.join([self.imgpath[:-4], '_processed', self.imgpath[-4:]])
-        else:
-            self.imgpath = ''.join([self.imgpath[:-5], '_processed', self.imgpath[-5:]])
-        cv2.imwrite(self.imgpath, img)
-        return self.imgpath
+#         if self.imgpath[-4] == '.':
+#             self.imgpath = ''.join([self.imgpath[:-4], '_processed', self.imgpath[-4:]])
+#         else:
+#             self.imgpath = ''.join([self.imgpath[:-5], '_processed', self.imgpath[-5:]])
+#         cv2.imwrite(self.imgpath, img)
+#         return self.imgpath
 
     # preprocess the image, resize and save
     # main problem of an image: small size, low contrast, wavy
@@ -119,6 +121,12 @@ class stoolTest:
 #                     self.imgpath = ''.join([self.imgpath[:-5], '_processed', self.imgpath[-5:]])
 #                 i.save(filename=self.imgpath)
 #         return self.imgpath
+
+    # preprocess the image, resize and save
+    # main problem of an image: small size, low contrast, wavy
+    def image_process(self):
+        ImageProcessor().process_image(self.imgpath, self.imgpath, dpi = 70)
+        return self.imgpath
     
     # tesseract OCR
     def tess_result(self):
