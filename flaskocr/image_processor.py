@@ -190,7 +190,11 @@ class ImageProcessor():
         matrix = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         matrix = cv2.GaussianBlur(matrix, (7, 7), 0.6)
         matrix = self.contrast_img(matrix)
-        matrix = self.shadowRemover.RemoveShadow(matrix)
+        # matrix = self.shadowRemover.RemoveShadow(matrix)
+        matrix = cv2.adaptiveThreshold(matrix, 255, cv2.ADAPTIVE_THRESH_MEAN_C,
+                                     cv2.THRESH_BINARY,
+                                     self.shadowRemover.blockSize // 2 * 2 + 1,
+                                     25)
         rt = np.zeros_like(matrix).astype('int64')
         edge = min(min(len(matrix), len(matrix[0])) // 100, 3)
         print(edge)
@@ -205,6 +209,5 @@ class ImageProcessor():
         img_ori = cv2.imread(scr_path)
         result = self.generateGray(img_ori)
         Image.fromarray(result).save(dst_path, dpi=(dpi, dpi))
-
-
+        return result
 

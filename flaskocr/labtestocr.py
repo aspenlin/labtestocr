@@ -12,6 +12,11 @@ import cv2
 from image_processor import ImageProcessor
 
 
+SYMBOLS = '()[]{}+-*/<=>^、~.,?!%;:#\'\"\\↑↓'
+NUMBERS = '0123456789'
+LETTERS = 'abcdefghigklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+CHARBASE = '序号英文名称中文名称结果状态单位参考值项目结果参考值单位简称参考范围单位检测方法检验项目测定结果区间提示备注代码缩写代号'
+
 class stoolTest:
     # these will be initialized when the class is called
     def __init__(self, imgpath, width_pixel=2000):
@@ -26,16 +31,17 @@ class stoolTest:
 
     # allow tesseract to only recognize these characters
     def whitelist(self):
-        return '()+-、\
+        return ''.join(set('()+-、\
                 颜色硬度大便性状外观镜下白细胞红脓上皮其他脂肪滴球隐血试验群轮病毒草绿黄棕\
                 软糊弱阴阳寄生原虫卵霉菌孢子体未见异常检出\
                 肌肉纤维植物颗粒它抗水粘液淀粉样本胶体金法\
-                abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.'
+                abcdefghijklmnopqrstuvwxyzABCDEFGHI\
+                JKLMNOPQRSTUVWXYZ0123456789.' + SYMBOLS + NUMBERS + LETTERS + CHARBASE))
 
     # charasters allowed in parsed results
     def result_char_allowed(self):
-        return '草绿棕黄红色糊状弱阴阳性粘液稀软水样便0123456789.+-~～\
-                未检出见异常() /HP少量'
+        return ''.join(set('草绿棕黄红色糊状弱阴阳性粘液稀软水样便0123456789.+-~～\
+                未检出见异常() /HP少量' + NUMBERS + SYMBOLS))
 
     # one test item can have different names from different hospitals
     # this dict is for including all the different names
@@ -171,6 +177,7 @@ class stoolTest:
                     # print(name, fuzzy_new, fuzz_ratio_new)
                     if fuzz_ratio_new > fuzz_ratio:
                         fuzzy = fuzzy_new
+                        fuzz_ratio = fuzz_ratio_new
                 # if string fuzzy matching acore is higher than 60
                 if fuzzy[1] >= 60:
                     match = fuzzy[0]
@@ -290,15 +297,15 @@ class stoolTest:
 class urineTest(stoolTest):
 
     def whitelist(self):
-        return '<=?+().^~\
+        return ''.join(set('<=?+().^~\
                 尿液分析胆原红素酮体血蛋白质亚硝酸盐细胞葡萄糖比重碱度镜检上皮管型结晶其他有形成份阴\
                 性无结果项目名称参考区间单位颜色黄浊清～/值隐-位相电导率仅供类酵母菌粘液丝计数病理量信息完整高倍提示低潜正常浑\
                 酯酶小圆非均一级标记视野平体积百阳微透明澄浅直接未见找到异维生外观晰个路感染态受损滴虫霉菌每鳞状柱粒草肌酐钙\
-                abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+                abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789' + SYMBOLS + NUMBERS + LETTERS + CHARBASE))
 
     def result_char_allowed(self):
-        return '0123456789.+-()尿路感染?红色性弱阴阳未找到见异常提示检出无<= 清\
-                分类正常见浅微黄澄清晰浑浊非均一型红细胞级NORMALNEGnegnormal/HP'
+        return ''.join(set('0123456789.+-()尿路感染?红色性弱阴阳未找到见异常提示检出无<= 清\
+                分类正常见浅微黄澄清晰浑浊非均一型红细胞级NORMALNEGnegnormal/HP' + NUMBERS + SYMBOLS))
 
     def test_items_dict(self):
         urine_dict = {}
@@ -362,14 +369,14 @@ class bloodTest(stoolTest):
             return ''.join([name, '(\s*)(\S{1,3})'])
 
     def whitelist(self):
-        return '<=-～()+-abcdefghijklmnopqrstuvwxyz/\
+        return ''.join(set('<=-～()+-abcdefghijklmnopqrstuvwxyz/\
                 葡萄糖白细胞计数中性目百变异系标准差网织率总比↑\
                 ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890.\
                 %淋巴细胞单核嗜酸粒碱绝对值红蛋血压积平均量\
-                浓度分布宽小板体性沉大肺炎支原反应'
+                浓度分布宽小板体性沉大肺炎支原反应' + SYMBOLS + NUMBERS + LETTERS + CHARBASE))
 
     def result_char_allowed(self):
-        return '0123456789.+-()弱阴阳性↑'
+        return ''.join(set('0123456789.+-()弱阴阳性↑' + NUMBERS + SYMBOLS))
 
     def test_items_dict(self):
         blood_dict = {}

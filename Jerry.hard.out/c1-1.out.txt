@@ -1,0 +1,32 @@
+        布生检对单
+SS           ChengpuSecondPeoble"sHospitalTnspectionReport
+Ganei         fpepb明生检SampleNol343
+性Sexx             半fbed              丁SampleType血
+上Chgejs        半PatNa             移检tposteb上
+间SickTypaD   计CDiag
+计甘    中             半       单        值
+1      af/WBC细胞计数             9.33      09/L      3.5r9.2
+      NEUT%       中性分核粒胞分数77.2            5070
+         LYMPH%        淋巴细胞分数              11.9             L                   2040
+4           MONOY            单核细胞分数                7.8                      310                                 8
+5      EN        嗜酸性粒细胞分数2.4           0.55
+6         BASO%          碱性粒细胞分数        0.6                   01
+7        NEUT        中性分核粒细胞绝对数7.20          HH       k10"9/L        27
+8         YNMPH        淋巴细胞绝对数              1.11                       09/L          0.84
+9         NONO         单核细胞绝对数             04.14                      10"9A         0.121.00
+10PO8             嗜酸性粒细胞绝对数0.32                      079/L          0.020.5
+11        BASO8          嗜碱性粒细胞绝对数        0.06                       109/L          00.1
+SRBC红细胞计数           4             1012/L     4.095.74
+13H/3H68血红生白               152                g/L          131173
+14     HCT      红细胞比            45.30            38.050.8
+15       MCY            平均红细胞体积             93.6                      fL                83.999.1
+16MCH              平均红细胞血红蛋白明31.4                        pg                  27.833.8
+17      MCHC         平均红细胞血红蛋浓度336                   g/L             320355
+18        RDWSD         红细胞体积分布宽度SD44.1                  8754
+19        RDWCY        红细胞积分布宽度CY12.9                      %                   11.514.5
+20生PLT血小板计数             272                09AL      85303
+21PDY            血小板积分布宽11.7                     计                917
+23MPY                平均血小板积                9.8                     917
+23        PCT             血小板二                   0.27                   D0.110.28
+24        PLGR          型血小板比              23.8                       %                    1343
+

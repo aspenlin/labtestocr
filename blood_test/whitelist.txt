@@ -1,0 +1,2 @@
+tessedit_char_whitelist " !\"#%'()*+,-./0123456789:;<=>?ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^abcdefghijklmnopqrstuvwxyz{}~↑↓、中代位体值写准分区单压原参反变号名嗜围均备大定宽对小差巴布平序应度异态性总提支数文方板果标核检比沉法注测浓淋炎状率白百目码碱示积称简粒糖系红细织结绝缩网考肺胞英范萄葡蛋血计酸量间项验～"
+preserve_interword_spaces 1
